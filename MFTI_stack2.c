@@ -1,24 +1,60 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#define SIZE 4
+#define N 4
 
 typedef int data;
 
 typedef struct 
 {
-	data a[SIZE];
+	data *a;
 	unsigned int n;
+	size_t SIZE;
 }Stack;
+
+
+int ft_is_empty(Stack *st)
+{
+		return (st->n == 0);
+}
+
+int ft_is_full(Stack *st)
+{
+	return(st->n == st->SIZE);
+}
 
 void ft_init(Stack * st)
 {
 	st->n = 0;
+	st->SIZE = 0;
+	st->a = NULL;
+}
+
+Stack * ft_creat()
+{
+	Stack *st = malloc(sizeof(Stack));
+	ft_init(st);
+	return st;
+}
+
+void ft_destroy(Stack *st)
+{
+	free(st->a);
+	ft_init(st);
 }
 
 void ft_push(Stack * st, data x)
 {
+	if(ft_is_full(st))
+	{
+		//free(st->a);
+		st->SIZE += N;
+		st->a = realloc(st->a, sizeof(data)*st->SIZE);
+		//st->a = malloc(sizeof(data)*st->SIZE);
+	}
 	st->a[st->n] = x;
 	st->n++;
+
 }
 
 void ft_print(Stack * st)
@@ -34,60 +70,49 @@ void ft_print(Stack * st)
 	//printf("test st->n = %d\n", st->n);
 }
 
-int ft_is_empty(Stack *st)
-{
-		return (st->n == 0);
-}
-
-int ft_is_full(Stack *st)
-{
-	if (st->n == SIZE)
-		return 0;
-	else
-		return -1;
-}
-
 data ft_pop(Stack * st)
 {
 	data resul;
 	st->n--;
 	resul = st->a[st->n];
-	st->a[st->n] = 0;
+	
+	//st->a[st->n] = 0;
 	
 	return resul;
 }
 
 
+
 int main()
 {
-	Stack s = {{7,4,1}, 3};
-	Stack *st = &s;
-	data p, p1, p2;
+	//Stack s;
+	//Stack *st = &s;
+	data p;
 	unsigned int i;
 
-	i = 0;
-	ft_init(st);
+	i = 2;
+	//ft_init(st);
+	Stack *st = ft_creat();
 	printf("is_empty %s\n", ft_is_empty(st) ? "YES" : "NO");
 	printf("is_full %s\n", ft_is_full(st) == 0 ? "YES" : "NO");
 	
-	while (ft_is_full(st) != 0)
+	while (i < 7)
 	{
 		ft_push(st, i);
 		i++;
 	}
-	
-	// ft_push(st, 5);
-	// ft_push(st, 17);
-	// ft_push(st, -3);
-	// ft_push(st, 10);
+
 	ft_print(st);
 	printf("is_empty %s\n", ft_is_empty(st) ? "YES" : "NO");
 	printf("is_full %s\n", ft_is_full(st) == 0 ? "YES" : "NO");
-	while (st->n >0)
+	while (st->n > 0)
 	{
 		p = ft_pop(st);
+		printf("%d\n", p);
 	}
+	printf("\n-------------------\n");
 	ft_print(st);
-	
+	ft_destroy(st);
+	return 0;
 	
 }

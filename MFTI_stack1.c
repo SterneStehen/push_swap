@@ -6,7 +6,7 @@ typedef int data;
 
 typedef struct 
 {
-	data a[SIZE];
+	data a[N];
 	unsigned int n;
 }Stack;
 
@@ -41,7 +41,7 @@ int ft_is_empty(Stack *st)
 
 int ft_is_full(Stack *st)
 {
-	if (st->n == SIZE)
+	if (st->n == N)
 		return 0;
 	else
 		return -1;
