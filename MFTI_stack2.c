@@ -40,6 +40,7 @@ Stack * ft_creat()
 void ft_destroy(Stack *st)
 {
 	free(st->a);
+	free(st);
 	ft_init(st);
 }
 
@@ -47,10 +48,10 @@ void ft_push(Stack * st, data x)
 {
 	if(ft_is_full(st))
 	{
-		//free(st->a);
+		free(st->a);
 		st->SIZE += N;
-		st->a = realloc(st->a, sizeof(data)*st->SIZE);
-		//st->a = malloc(sizeof(data)*st->SIZE);
+		//st->a = realloc(st->a, sizeof(data)*st->SIZE);
+		st->a = malloc(sizeof(data)*st->SIZE);
 	}
 	st->a[st->n] = x;
 	st->n++;
