@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef int data;
 
@@ -10,6 +11,48 @@ typedef struct Node
 	struct Node * next;
 }Node;
 
+Node * ft_push(Node * list, data x)
+{
+	Node * p;
+	p = malloc(sizeof(Node));
+	p->Data = x;
+	p->next = list;
+	list = p;
+	return(p);
+}
+
+Node ft_push_v2(Node ** list, data x)
+{
+	Node * p;
+	p = malloc(sizeof(Node));
+	p->Data = x;
+	p->next = *list;
+	*list = p;
+	//return(p);
+}
+
+data ft_pop(Node ** list)
+{
+	data 	num;
+	Node * ptr;
+	num = (*list)->Data; //list
+	ptr = (*list)->next;
+	*list = ptr;
+	return(num);
+}
+
+void ft_print(Node * list)
+{
+	Node * p;
+	p = list;
+	while (p != NULL)
+	{
+		printf("%d\n", p->Data);
+		p = p->next;
+	}
+	printf("---------------------\n");
+}
+
 int main()
 {
 
@@ -20,25 +63,50 @@ int main()
 	b.next = &c;
 	c.next = NULL;
 
-	Node * p;
-	p = list;
-	printf("%d\n", a.Data);
-	printf("%d\n", b.Data);
-	printf("%d\n", c.Data);
-	printf("---------------------\n");
+	
+	ft_print(list);
 
-	printf("%d\n", p->Data);
-	p = p->next;
-	printf("%d\n", p->Data);
-	p = p->next;
-	printf("%d\n", p->Data);
-	p = p->next;
-	printf("---------------------\n");
+	// t.next = &a;
+	// list = &t;
+	// ft_print(list);
+	// Node * p;
+	// p = &t;
+	// p->next = list;
+	// list = p;
+	// ft_print(list);
 
+	list = ft_push(list, t.Data);
+	ft_print(list);
+	ft_push_v2(&list, 12);
+	ft_print(list);
 
-	// while (list != NULL)
-	// {
-	// 	printf("%d\n", list->Data);
-	// 	list = list->next;
-	// }
+	// Node * 	p;
+	// p = list; //list
+	// list = &t;
+	// list->next = &a;
+	data num;
+	num = ft_pop(&list);
+	printf("list after pop:\n");
+	ft_print(list);
+	printf("num = %d\n", num);
+	
+
+	// printf("%d\n", a.Data);
+	// printf("%d\n", b.Data);
+	// printf("%d\n", c.Data);
+	// printf("---------------------\n");
+
+	// 	Node * p;
+	// p = list;
+	// printf("%d\n", p->Data);
+	// p = p->next;
+	// printf("%d\n", p->Data);
+	// p = p->next;
+	// printf("%d\n", p->Data);
+	// p = p->next;
+	// printf("---------------------\n");
+	// p = list;
+	
+	
+	
 }
