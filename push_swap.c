@@ -6,12 +6,105 @@ typedef struct s_stack
 	int num;
 	int index;
 	struct s_stack * next;
-}Stack;
+}t_list;
 
-
-void	ft_lstclear(Stack **lst)
+size_t	ft_strlen(const char *str)
 {
-	Stack	*tmp;
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+	{
+		substr = (char *)malloc(1);
+		if (substr)
+			substr[0] = '\0';
+		return (substr);
+	}
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	substr = (char *) malloc (len + 1);
+	if (!substr)
+		return (NULL);
+	while (i < len && s[start + i])
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[i] = '\0';
+	return (substr);
+}
+
+int	ft_world_count( char const *str, char c)
+{
+	int	count;
+	int	in_word;
+
+	count = 0;
+	in_word = 0;
+	while (*str)
+	{
+		if (*str == c)
+		{
+			in_word = 0;
+		}
+		else if (!in_word)
+		{
+			in_word = 1;
+			count++;
+		}
+		str++;
+	}
+	return (count);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	int		world_count;	
+	int		i;
+	int		j;
+	int		start;
+	char	**result;
+
+	i = 0;
+	j = 0;
+	world_count = ft_world_count(s, c);
+	result = (char **)malloc(sizeof(char *) * (world_count + 1));
+	if (!result)
+		return (NULL);
+	while (s[i])
+	{
+		while ((s[i] == c) && s[i])
+			i++;
+		start = i;
+		while (s[i] != c && s[i])
+			i++;
+		if (i > start)
+			result[j++] = ft_substr(s, start, (i - start));
+	}
+	result[j] = NULL;
+	return (result);
+}
+
+
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*tmp;
 
 	if (!lst )
 		return ;
@@ -23,7 +116,7 @@ void	ft_lstclear(Stack **lst)
 	}
 }
 
-void ft_print_Stack(Stack * st)
+void ft_print_Stack(t_list * st)
 {
 	while (st->next != NULL)
 	{
@@ -33,7 +126,7 @@ void ft_print_Stack(Stack * st)
 	//printf("test st->n = %d\n", st->n);
 }
 
-Stack	*ft_lstlast(Stack *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -44,9 +137,9 @@ Stack	*ft_lstlast(Stack *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back(Stack **lst, Stack *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	Stack	*last;
+	t_list	*last;
 
 	if (!new)
 		return ;
@@ -59,11 +152,11 @@ void	ft_lstadd_back(Stack **lst, Stack *new)
 	last->next = new;
 }
 
-Stack	*ft_lstnew(int content)
+t_list	*ft_lstnew(int content)
 {
-	Stack	*new_list;
+	t_list	*new_list;
 
-	new_list = (Stack *) malloc(sizeof(Stack));
+	new_list = (t_list *) malloc(sizeof(t_list));
 	if (!new_list)
 		return (NULL);
 	new_list->num = content;
@@ -96,59 +189,59 @@ int	ft_atoi(const char *nptr)
 	return (num * neg);
 }
 
-void ft_init(Stack * st)
+void ft_init(t_list * st)
 {
 	st->num = 0;
 	st->index = 0;
 	st->next = NULL;
 }
 
-
-Stack * ft_creat()
+t_list * ft_creat()
 {
-	Stack *st = malloc(sizeof(Stack));
+	t_list *st = malloc(sizeof(t_list));
 	ft_init(st);
 	return st;
 }
 
 
-void ft_creat_push(Stack *a, int ac, char * argv[])
+void ft_creat_push(t_list *a, int ac, char * argv[])
 {
 	int i;
+	int count;
 	int digit;
-	Stack * tmp;
-	
-	i = 1;
-	while (i < ac)
+	t_list * tmp;
+	char **av;
+	av = malloc(sizeof(char));
+
+
+	count = 0;
+	i = 0;
+	if (ac == 2)
 	{
-		printf("argv[%d] = %s\n", i, argv[i]);
+		av = ft_split(argv[1], ' ');
+	}
+	else
+	{
+		av = argv;
+		i = 1;
+	}
+	while (av[i])
+	{
+		digit = ft_atoi(av[i]);
+		tmp = ft_lstnew(digit);
+		ft_lstadd_back(&a, tmp);
 		i++;
 	}
-	
-	if(ac > 2)
-	{
-		i = 1;
-		while (i < ac)
-		{
-			digit = ft_atoi(argv[i]);
-			tmp = ft_lstnew(digit);
-			i++;
-			ft_lstadd_back(&a, tmp);
-		}
-		i = 0;
-		ft_print_Stack(a);
-		
-	}
-	
+	ft_print_Stack(a);
 }
 
 int main(int argc, char *argv[])
 {
-	Stack *a;
-	Stack *b;
+	t_list *a;
+	t_list *b;
 	a = ft_creat();
 	b = ft_creat();
 	ft_creat_push(a, argc, argv);
 	ft_lstclear(&a);
-	ft_lstclear(&a);
+	ft_lstclear(&b);
 }

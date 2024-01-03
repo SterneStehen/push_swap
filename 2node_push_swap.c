@@ -18,7 +18,7 @@ typedef struct s_stack
 	int num;
 	struct s_stack * next;
 	struct s_stack * prev;
-}Stack;
+}t_list;
 
 size_t	ft_strlen(const char *str)
 {
@@ -112,9 +112,9 @@ char	**ft_split(char const *s, char c)
 	return (result);
 }
 
-void ft_print(Stack * list)
+void ft_print(t_list * list)
 {
-	Stack * p;
+	t_list * p;
 	p = list->next;
 	while (p != list)
 	{
@@ -124,9 +124,9 @@ void ft_print(Stack * list)
 	printf("\n");
 }
 
-void ft_insert(Stack *a, Stack * t)
+void ft_insert(t_list *a, t_list * t)
 {
-	Stack *b;
+	t_list *b;
 	//b = malloc(sizeof(t_stack));
 	b = a->next;
 	t->prev = a;
@@ -135,16 +135,16 @@ void ft_insert(Stack *a, Stack * t)
 	b->prev = t;
 }
 
-Stack * ft_push_front(Stack *list, int n)
+t_list * ft_push_front(t_list *list, int n)
 {
-	Stack * new;
-	new = malloc(sizeof(Stack));
+	t_list * new;
+	new = malloc(sizeof(t_list));
 	new->num = n;
 	ft_insert(list, new);
 	return (list);
 }
 
-void ft_init(Stack * list)
+void ft_init(t_list * list)
 {
 	list->next = list;
 	list->prev = list;
@@ -175,7 +175,7 @@ int	ft_atoi(const char *nptr)
 	return (num * neg);
 }
 
-void ft_push_swap(Stack *a, Stack*b, int ac, char **av)
+void ft_push_swap(t_list *a, t_list*b, int ac, char **av)
 {
 	int i;
 	i = 0;
@@ -203,11 +203,11 @@ int main(int argc, char * argv[])
 	// argc = 2;
 	// char s[] = "3 4 5";
 	// argv = s; 
-	Stack *a;
-	a = malloc(sizeof(Stack));
+	t_list *a;
+	a = malloc(sizeof(t_list));
 	ft_init(a);
-	Stack *b;
-	b = malloc(sizeof(Stack));
+	t_list *b;
+	b = malloc(sizeof(t_list));
 	ft_init(b);
 
 	ft_push_swap(a, b, argc, argv);
