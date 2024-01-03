@@ -10,10 +10,10 @@ typedef struct  s_node {
 // Определение структуры стека
 typedef struct  s_stack {
     t_node *top;  // Вершина стека
-}               t_stack;
+}               Stack;
 
 // Функция для добавления элемента в стек
-void    push(t_stack *stack, int value) {
+void    push(Stack *stack, int value) {
     t_node *new = malloc(sizeof(t_node));  // Выделение памяти для нового узла
     if (!new) return;  // Проверка на успешное выделение памяти
     new->value = value;  // Присваивание значения узлу
@@ -23,7 +23,7 @@ void    push(t_stack *stack, int value) {
 }
 
 // Функция для удаления элемента из стека
-int     pop(t_stack *stack) {
+int     pop(Stack *stack) {
     if (stack->top == NULL) return -1;  // Проверка на пустой стек
     t_node *top = stack->top;  // Сохранение текущей вершины стека
     int value = top->value;  // Сохранение значения вершины
@@ -33,7 +33,7 @@ int     pop(t_stack *stack) {
 }
 
 // Функция для обмена двух верхних элементов стека
-void    swap(t_stack *stack) {
+void    swap(Stack *stack) {
     if (stack->top == NULL || stack->top->next == NULL) return;  // Проверка на достаточное количество элементов
     t_node *first = stack->top;  // Первый элемент
     t_node *second = first->next;  // Второй элемент
@@ -43,7 +43,7 @@ void    swap(t_stack *stack) {
 }
 
 // Функция для сортировки трех элементов в стеке
-void    sort_three(t_stack *stack) {
+void    sort_three(Stack *stack) {
     // Получение значений трех верхних элементов стека
     int a = stack->top->value;
     int b = stack->top->next->value;
@@ -69,7 +69,7 @@ void    sort_three(t_stack *stack) {
 }
 
 int main() {
-    t_stack stack;  // Создание стека
+    Stack stack;  // Создание стека
     stack.top = NULL;  // Инициализация пустого стека
 
     // Добавление чисел в стек
