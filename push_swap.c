@@ -213,9 +213,8 @@ void ft_creat_push(t_list *a, int ac, char * argv[])
 	char **av;
 	av = malloc(sizeof(char));
 
-
 	count = 0;
-	i = 0;
+	i = 1;
 	if (ac == 2)
 	{
 		av = ft_split(argv[1], ' ');
