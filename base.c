@@ -8,7 +8,7 @@ typedef struct  s_node {
 }               t_node;
 
 // Определение структуры стека
-typedef struct  s_stack {
+typedef struct  s_list {
     t_node *top;  // Вершина стека
 }               t_list;
 

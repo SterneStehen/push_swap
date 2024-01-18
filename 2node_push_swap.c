@@ -13,11 +13,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct s_stack
+typedef struct s_list
 {
 	int num;
-	struct s_stack * next;
-	struct s_stack * prev;
+	struct s_list * next;
+	struct s_list * prev;
 }t_list;
 
 size_t	ft_strlen(const char *str)

@@ -1,12 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct s_stack
+typedef struct s_list
 {
 	int num;
 	int index;
-	struct s_stack * next;
+	struct s_list * next;
 }t_list;
+
+int ft_is_empty(t_list *st)
+{
+		return (st->num == 0);
+}
 
 size_t	ft_strlen(const char *str)
 {
@@ -118,7 +123,7 @@ void	ft_lstclear(t_list **lst)
 
 void ft_print_Stack(t_list * st)
 {
-	while (st->next != NULL)
+	while (st != NULL)
 	{
 		printf("st->num = %d \n", st->num);
 		st = st->next;
@@ -189,20 +194,17 @@ int	ft_atoi(const char *nptr)
 	return (num * neg);
 }
 
-void ft_init(t_list * st)
-{
-	st->num = 0;
-	st->index = 0;
-	st->next = NULL;
-}
 
 t_list * ft_creat()
 {
-	t_list *st = malloc(sizeof(t_list));
-	ft_init(st);
-	return st;
-}
+	t_list * creat;
+	creat = (t_list *)malloc(sizeof(t_list));
+	creat = NULL;
 
+	// t_list *st = malloc(sizeof(t_list));
+	// ft_init(st);
+	return creat;
+}
 
 void ft_creat_push(t_list *a, int ac, char * argv[])
 {
@@ -211,13 +213,14 @@ void ft_creat_push(t_list *a, int ac, char * argv[])
 	int digit;
 	t_list * tmp;
 	char **av;
-	av = malloc(sizeof(char));
+	//av = malloc(sizeof(char));
 
 	count = 0;
-	i = 1;
+	i = 0;
 	if (ac == 2)
 	{
 		av = ft_split(argv[1], ' ');
+		//printf("%s\n", *av);
 	}
 	else
 	{
@@ -228,19 +231,32 @@ void ft_creat_push(t_list *a, int ac, char * argv[])
 	{
 		digit = ft_atoi(av[i]);
 		tmp = ft_lstnew(digit);
+		//tmp = ft_lstnew(ft_atoi(av[i]));
 		ft_lstadd_back(&a, tmp);
 		i++;
+		//ft_print_Stack(a);
 	}
 	ft_print_Stack(a);
 }
 
-int main(int argc, char *argv[])
+//int main(int argc, char*argv[])
+int main()
 {
 	t_list *a;
 	t_list *b;
+	int argc = 2;
+    char* arg[2]; 
+    arg[0] = (char*)"name";
+    // arg[1] = (char*)"7";
+	// arg[2] = (char*)"8";
+ 	// arg[3] = (char*)"9";
+	// arg[4] = (char*)"10";
+	arg[1] = (char*)"7 8 9 10 11 12";
+
 	a = ft_creat();
 	b = ft_creat();
-	ft_creat_push(a, argc, argv);
+	
+	ft_creat_push(a, argc, arg);
 	ft_lstclear(&a);
 	ft_lstclear(&b);
 }
