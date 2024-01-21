@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 typedef struct t_list
@@ -8,6 +9,83 @@ typedef struct t_list
 	struct t_list * next;
 }t_list;
 
+void ft_print_Stack(t_list * st)
+{
+	while (st != NULL)
+	{
+		printf("st->num = %d  st->index = %d\n", st->num, st->index);
+		st = st->next;
+	}
+	//printf("test st->n = %d\n", st->n);
+}
+
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+}
+
+t_list * swap(t_list *list)
+{
+	if (list == NULL || list->next == NULL) 
+	{
+        return list;
+    }
+	
+	t_list *tmp;
+	size_t num;
+	size_t index;
+
+	tmp = list->next;
+	num = tmp->num;
+	index = tmp->index;
+	tmp->num = list->num;
+	tmp->index = list->index;
+	list->num = num;
+	list->index = index;
+	return (list);
+
+}
+
+void sa (t_list *list)
+{
+	list = swap(list);
+
+	ft_putstr_fd("sa\n", 1);
+}
+
+int ft_len_stack(t_list *list)
+{
+	while (list)
+	{
+		list = list->next;
+	}
+	return (list->index);
+}
+
+void ft_simple_swap(t_list *list)
+{
+	//if(ft_len_stack(list) == 2)
+	sa(list);
+
+}
+
+void ft_push_swap(t_list *a, t_list *b)
+{
+	//if(ft_len_stack(a) < 5)
+	ft_simple_swap(a);
+	//else
+	//	ft_big_swap(a, b);
+}
 
 t_list *ft_min_stack(t_list *list) 
 {
@@ -17,7 +95,8 @@ t_list *ft_min_stack(t_list *list)
 
     while (node) 
 	{
-        if (node->index == -1 && (min_stack == NULL || node->num < min_stack->num)) {
+        if (node->index == -1 && (min_stack == NULL || node->num < min_stack->num)) 
+		{
             min_stack = node;
         }
         node = node->next;
@@ -25,39 +104,23 @@ t_list *ft_min_stack(t_list *list)
     return min_stack;
 }
 
-
 t_list *ft_index_stack(t_list *stack) {
     t_list *head;
     int index = 0;
 
-    while ((head = ft_min_stack(stack))) {  
+    while ((head = ft_min_stack(stack))) 
+	{  
         head->index = index++;
     }
 
     return stack;
 }
 
-
-// t_list * ft_index(t_list *list)
-// {
-// 	t_list *head;
-// 	t_list *temp;
-// 	int index;
-
-// 	temp = list;
-// 	index = 0;
-// 	while (head = ft_min_stack(temp))
-// 	{
-// 		temp->index == index++;
-// 	}
-// return (list);
-// }
-
 int ft_sorted(t_list * list)
 {
 	if(!list)
 		return (1);
-	while (list)
+	while (list->next)
 	{
 		if(list->num > list->next->num)
 			return (0);
@@ -178,16 +241,6 @@ void	ft_lstclear(t_list **lst)
 	}
 }
 
-void ft_print_Stack(t_list * st)
-{
-	while (st != NULL)
-	{
-		printf("st->num = %d  st->index = %d\n", st->num, st->index);
-		st = st->next;
-	}
-	//printf("test st->n = %d\n", st->n);
-}
-
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
@@ -252,7 +305,6 @@ int	ft_atoi(const char *nptr)
 	return (num * neg);
 }
 
-
 t_list * ft_creat()
 {
 	t_list * creat;
@@ -264,21 +316,19 @@ t_list * ft_creat()
 	return creat;
 }
 
-void ft_creat_push(t_list *a, int ac, char * argv[])
+t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 {
 	int i;
 	int count;
 	int digit;
 	t_list * tmp;
 	char **av;
-	//av = malloc(sizeof(char));
 
 	count = 0;
 	i = 0;
 	if (ac == 2)
 	{
 		av = ft_split(argv[1], ' ');
-		//printf("%s\n", *av);
 	}
 	else
 	{
@@ -289,13 +339,11 @@ void ft_creat_push(t_list *a, int ac, char * argv[])
 	{
 		digit = ft_atoi(av[i]);
 		tmp = ft_lstnew(digit);
-		//tmp = ft_lstnew(ft_atoi(av[i]));
 		ft_lstadd_back(&a, tmp);
 		i++;
-		//ft_print_Stack(a);
 	}
 	a = ft_index_stack(a);
-	ft_print_Stack(a);
+	return (a);
 }
 
 //int main(int argc, char*argv[])
@@ -310,12 +358,20 @@ int main()
 	// arg[2] = (char*)"8";
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
-	arg[1] = (char*)"7 8  10 11 12 9";
+	arg[1] = (char*)"7 8  10  11 12 9";
 
 	a = ft_creat();
 	b = ft_creat();
 	
-	ft_creat_push(a, argc, arg);
+	a = ft_creat_stack(a, argc, arg);
+	ft_print_Stack(a);
+	if (!ft_sorted(a))
+	{
+		ft_push_swap(a, b);
+		ft_print_Stack(a);
+	}
+	
+	
 	ft_lstclear(&a);
 	ft_lstclear(&b);
 }
