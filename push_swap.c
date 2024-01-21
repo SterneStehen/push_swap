@@ -1,12 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct s_list
+typedef struct t_list
 {
 	int num;
 	int index;
-	struct s_list * next;
+	struct t_list * next;
 }t_list;
+
+
+t_list *ft_min_stack(t_list *list) 
+{
+    t_list *node;
+    t_list *min_stack = NULL;
+    node = list;
+
+    while (node) 
+	{
+        if (node->index == -1 && (min_stack == NULL || node->num < min_stack->num)) {
+            min_stack = node;
+        }
+        node = node->next;
+    }
+    return min_stack;
+}
+
+
+t_list *ft_index_stack(t_list *stack) {
+    t_list *head;
+    int index = 0;
+
+    while ((head = ft_min_stack(stack))) {  
+        head->index = index++;
+    }
+
+    return stack;
+}
+
+
+// t_list * ft_index(t_list *list)
+// {
+// 	t_list *head;
+// 	t_list *temp;
+// 	int index;
+
+// 	temp = list;
+// 	index = 0;
+// 	while (head = ft_min_stack(temp))
+// 	{
+// 		temp->index == index++;
+// 	}
+// return (list);
+// }
+
+int ft_sorted(t_list * list)
+{
+	if(!list)
+		return (1);
+	while (list)
+	{
+		if(list->num > list->next->num)
+			return (0);
+		list = list->next;
+	}
+	return (1);
+	
+}
 
 int ft_is_empty(t_list *st)
 {
@@ -24,7 +83,6 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
-
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -106,7 +164,6 @@ char	**ft_split(char const *s, char c)
 	return (result);
 }
 
-
 void	ft_lstclear(t_list **lst)
 {
 	t_list	*tmp;
@@ -125,7 +182,7 @@ void ft_print_Stack(t_list * st)
 {
 	while (st != NULL)
 	{
-		printf("st->num = %d \n", st->num);
+		printf("st->num = %d  st->index = %d\n", st->num, st->index);
 		st = st->next;
 	}
 	//printf("test st->n = %d\n", st->n);
@@ -165,6 +222,7 @@ t_list	*ft_lstnew(int content)
 	if (!new_list)
 		return (NULL);
 	new_list->num = content;
+	new_list->index = -1;
 	new_list->next = NULL;
 	return (new_list);
 }
@@ -236,6 +294,7 @@ void ft_creat_push(t_list *a, int ac, char * argv[])
 		i++;
 		//ft_print_Stack(a);
 	}
+	a = ft_index_stack(a);
 	ft_print_Stack(a);
 }
 
@@ -251,7 +310,7 @@ int main()
 	// arg[2] = (char*)"8";
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
-	arg[1] = (char*)"7 8 9 10 11 12";
+	arg[1] = (char*)"7 8  10 11 12 9";
 
 	a = ft_creat();
 	b = ft_creat();
