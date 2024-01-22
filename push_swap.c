@@ -9,17 +9,6 @@ typedef struct t_list
 	struct t_list * next;
 }t_list;
 
-void ft_print_Stack(t_list * st)
-{
-	while (st != NULL)
-	{
-		printf("st->num = %d  st->index = %d\n", st->num, st->index);
-		st = st->next;
-	}
-	//printf("test st->n = %d\n", st->n);
-}
-
-
 void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
@@ -34,55 +23,143 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-t_list * swap(t_list *list)
+void ft_print_Stack(t_list * st)
 {
-	if (list == NULL || list->next == NULL) 
+	while (st != NULL)
 	{
-        return list;
+		printf("st->num = %d  st->index = %d\n", st->num, st->index);
+		st = st->next;
+	}
+	//printf("test st->n = %d\n", st->n);
+}
+
+int push(t_list **a_list, t_list **b_list) 
+{
+    t_list *tmp;
+
+	if (a_list == NULL || (*a_list) == NULL) 
+	{
+        return -1;
+    }
+    
+	tmp = *a_list;
+    *a_list = (*a_list)->next;
+
+    if (*b_list != NULL) 
+	{
+        tmp->next = *b_list;
+    } 
+	else 
+	{
+        tmp->next = NULL;
+    }
+    *b_list = tmp;
+    return 0;
+}
+
+
+int swap(t_list **list)
+{
+	if ((*list) == NULL || (*list)->next == NULL) 
+	{
+        return(-1);
     }
 	
 	t_list *tmp;
 	size_t num;
 	size_t index;
 
-	tmp = list->next;
+	tmp = (*list)->next;
 	num = tmp->num;
 	index = tmp->index;
-	tmp->num = list->num;
-	tmp->index = list->index;
-	list->num = num;
-	list->index = index;
-	return (list);
-
+	tmp->num = (*list)->num;
+	tmp->index = (*list)->index;
+	(*list)->num = num;
+	(*list)->index = index;
+	return (0);
 }
 
-void sa (t_list *list)
+int sa(t_list **list) 
 {
-	list = swap(list);
-
-	ft_putstr_fd("sa\n", 1);
-}
-
-int ft_len_stack(t_list *list)
-{
-	while (list)
+    if (list == NULL || *list == NULL || (*list)->next == NULL)
 	{
-		list = list->next;
-	}
-	return (list->index);
+        return -1;
+    }
+    swap(list);
+    ft_putstr_fd("sa\n", 1);
+    return 0;
 }
 
-void ft_simple_swap(t_list *list)
+int sb(t_list **list) 
 {
-	//if(ft_len_stack(list) == 2)
-	sa(list);
-
+    if (list == NULL || *list == NULL || (*list)->next == NULL) 
+	{
+        return -1;
+    }
+    swap(list);
+    ft_putstr_fd("sb\n", 1);
+    return 0;
 }
 
-void ft_push_swap(t_list *a, t_list *b)
+int ss(t_list **lista, t_list **listb) {
+    int res1 = 0; 
+	int res2 = 0;
+    if (lista && *lista && (*lista)->next != NULL) 
+	{
+        swap(lista);
+    } 
+	else 
+	{
+        res1 = -1;
+    }
+    if (listb && *listb && (*listb)->next != NULL) 
+	{
+        swap(listb);
+    } 
+	else 
+	{
+        res2 = -1;
+    }
+    ft_putstr_fd("ss\n", 1);
+    if(res1 == 0 && res2 == 0)
+	{
+		return (0);
+	}
+	else
+	{
+		return (-1);
+	}
+}
+
+int ft_len_stack(t_list *list) 
+{
+    int count = 0;
+    while (list) 
+	{
+        count++;
+        list = list->next;
+    }
+    return (count);
+}
+
+
+// void ft_simple_swap(t_list *a_list, t_list *b_list)
+// {
+// 	//if(ft_len_stack(list) == 2)
+// 	//sa(&a_list);
+// 	push(&a_list, &b_list);
+	
+
+// }
+
+void ft_push_swap(t_list **a, t_list **b)
 {
 	//if(ft_len_stack(a) < 5)
-	ft_simple_swap(a);
+	//ft_simple_swap(a, b);
+	push(a, b);
+	push(a, b);
+	ft_print_Stack(*a);
+	ft_print_Stack(*b);
 	//else
 	//	ft_big_swap(a, b);
 }
@@ -367,8 +444,9 @@ int main()
 	ft_print_Stack(a);
 	if (!ft_sorted(a))
 	{
-		ft_push_swap(a, b);
-		ft_print_Stack(a);
+		ft_push_swap(&a, &b);
+		//ft_print_Stack(a);
+		//ft_print_Stack(b);
 	}
 	
 	
