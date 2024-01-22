@@ -9,6 +9,17 @@ typedef struct t_list
 	struct t_list * next;
 }t_list;
 
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+	{
+		lst = lst->next;
+	}
+	return (lst);
+}
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
@@ -33,6 +44,57 @@ void ft_print_Stack(t_list * st)
 	//printf("test st->n = %d\n", st->n);
 }
 
+int rotate(t_list **list) 
+{
+    if (list == NULL || *list == NULL || (*list)->next == NULL) 
+        return -1;
+    t_list *tmp;
+	t_list *end;
+	tmp = *list;
+    *list = (*list)->next;
+    end = ft_lstlast(tmp);
+    end->next = tmp;
+    tmp->next = NULL;
+    return 0;
+}
+
+int ra(t_list **a_list)
+{
+	int result;
+	result = rotate(a_list);
+	if(result == -1)
+		return(-1);
+	ft_putstr_fd("ra\n", 1);
+	return (0);
+}
+int rb(t_list **b_list)
+{
+	int result;
+	result = rotate(b_list);
+	if(result == -1)
+		return(-1);
+	ft_putstr_fd("rb\n", 1);
+	return (0);
+}
+int rr(t_list **a_list, t_list **b_list)
+{
+	if ((a_list == NULL || *a_list == NULL || (*a_list)->next == NULL) ||
+        (b_list == NULL || *b_list == NULL || (*b_list)->next == NULL)) 
+	{
+        return -1;
+    }
+	int result;
+	result = rotate(a_list);
+	if(result == -1)
+		return(-1);
+	result = rotate(b_list);
+	if(result == -1)
+		return(-1);
+	ft_putstr_fd("rr\n", 1);
+	return (0);
+}
+
+
 int push(t_list **a_list, t_list **b_list) 
 {
     t_list *tmp;
@@ -41,10 +103,8 @@ int push(t_list **a_list, t_list **b_list)
 	{
         return -1;
     }
-    
 	tmp = *a_list;
     *a_list = (*a_list)->next;
-
     if (*b_list != NULL) 
 	{
         tmp->next = *b_list;
@@ -57,6 +117,27 @@ int push(t_list **a_list, t_list **b_list)
     return 0;
 }
 
+int pb(t_list **a_list, t_list **b_list) 
+{
+    int result = push(a_list, b_list);
+    if (result == -1)
+	{
+        return -1;
+    }
+    ft_putstr_fd("pb\n", 1);
+    return 0;
+}
+
+int pa(t_list **a_list, t_list **b_list) 
+{
+    int result = push(b_list, a_list);
+    if (result == -1) 
+	{
+        return -1;
+    }
+    ft_putstr_fd("pa\n", 1);
+    return 0;
+}
 
 int swap(t_list **list)
 {
@@ -156,10 +237,23 @@ void ft_push_swap(t_list **a, t_list **b)
 {
 	//if(ft_len_stack(a) < 5)
 	//ft_simple_swap(a, b);
-	push(a, b);
-	push(a, b);
+	pb(a, b);
+	pb(a, b);
+	pb(a, b);
+	pa(a, b);
+	
+
 	ft_print_Stack(*a);
+	printf("_______________\n");
 	ft_print_Stack(*b);
+	rotate(b);
+	printf("_______________\n");
+	ft_print_Stack(*b);
+	rotate(a);
+	rotate(a);
+	rotate(a);
+	printf("_______________\n");
+	ft_print_Stack(*a);
 	//else
 	//	ft_big_swap(a, b);
 }
@@ -318,16 +412,6 @@ void	ft_lstclear(t_list **lst)
 	}
 }
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-	{
-		lst = lst->next;
-	}
-	return (lst);
-}
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
