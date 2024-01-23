@@ -16,9 +16,9 @@
 
 typedef struct t_list
 {
-	int num;
-	int index;
-	struct t_list * next;
+	int	num;
+	int	index;
+	struct	t_list * next;
 }t_list;
 
 t_list	*ft_lstlast(t_list *lst)
@@ -323,12 +323,9 @@ void ft_sort_3(t_list **a)
 
 	if (a == NULL || *a == NULL || (*a)->next == NULL || (*a)->next->next == NULL)
         return;
-
 	top = (*a)->num;
 	mid = (*a)->next->num;
 	low = (*a)->next->next->num;
-
-	
 	if(top < mid && mid > low && low > top)
 	{
 		sa(a);
@@ -347,6 +344,78 @@ void ft_sort_3(t_list **a)
 	}
 }
 
+int ft_find_min_num(t_list *a)
+{
+	t_list *list;
+	int count;
+	int resul;
+	int min;
+
+	if(a == NULL)
+		return (-1);
+	list = a;
+	min = list->num;
+	count = 0;
+	resul = 0;
+
+	while (list != NULL)
+	{
+		if(list->num < min)
+		{
+			min = list->num;
+			resul = count;
+		}
+		list = list->next;
+		count++;
+	}
+	return (resul);
+}
+
+void ft_sort_4(t_list **a, t_list **b)
+{
+	int len_to_min;
+	len_to_min = ft_find_min_num(*a);
+	if (len_to_min == 1)
+		ra(a);
+	else if (len_to_min == 2)
+	{
+		ra(a);
+		ra(a);
+	}
+	else if (len_to_min == 3)
+		rra(a);
+	pb(a,b);
+	ft_sort_3(a);
+	pa(a,b);
+}
+
+void ft_sort_5(t_list **a, t_list **b)
+{
+	int len_to_min;
+	len_to_min = ft_find_min_num(*a);
+	if (len_to_min == 1)
+		ra(a);
+	else if (len_to_min == 2)
+	{
+		ra(a);
+		ra(a);
+	}
+	else if (len_to_min == 3)
+	{
+		rra(a);
+		rra(a);
+	}
+	else if (len_to_min == 4)
+	{
+		rra(a);
+	}
+	pb(a,b);
+	ft_sort_4(a, b);
+	pa(a,b);
+	printf("\n---- test5-------\n");
+	ft_print_Stack(*a);
+}
+
 void ft_push_swap(t_list **a, t_list **b)
 {
 	int len;
@@ -357,8 +426,15 @@ void ft_push_swap(t_list **a, t_list **b)
 		sa(a);
 	if(len == 3)
 	{
-		ft_sort_3(a);
-		
+		ft_sort_3(a);	
+	}
+	if(len == 4)
+	{
+		ft_sort_4(a, b);	
+	}
+	if(len == 5)
+	{
+		ft_sort_5(a, b);	
 	}
 	//if(ft_len_stack(a) < 5)
 	//ft_simple_swap(a, b);
@@ -385,7 +461,7 @@ void ft_push_swap(t_list **a, t_list **b)
 	//	ft_big_swap(a, b);
 }
 
-t_list *ft_min_stack(t_list *list) 
+t_list *ft_min_stack_start(t_list *list) 
 {
     t_list *node;
     t_list *min_stack = NULL;
@@ -406,7 +482,7 @@ t_list *ft_index_stack(t_list *stack) {
     t_list *head;
     int index = 0;
 
-    while ((head = ft_min_stack(stack))) 
+    while ((head = ft_min_stack_start(stack))) 
 	{  
         head->index = index++;
     }
@@ -631,7 +707,7 @@ int main()
 	// arg[2] = (char*)"8";
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
-	arg[1] = (char*)"9 8 7";
+	arg[1] = (char*)"1 7 2 8";
 
 	a = ft_creat();
 	b = ft_creat();
@@ -642,13 +718,12 @@ int main()
 	if (!ft_sorted(a))
 	{
 	
-		//ft_push_swap(&a, &b);
+		ft_push_swap(&a, &b);
 		//  printf("----test origin-----\n");
-		  ft_test_sort_3(&a);
+		// ft_test_sort_3(&a);
 		//ft_print_Stack(a);
 		//ft_print_Stack(b);
 	}
-	
 	
 	ft_lstclear(&a);
 	ft_lstclear(&b);
