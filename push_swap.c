@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smoreron <7353718@gmail.com>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/23 14:51:59 by smoreron          #+#    #+#             */
+/*   Updated: 2024/01/23 14:51:59 by smoreron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -289,41 +301,86 @@ int ft_len_stack(t_list *list)
     return (count);
 }
 
-
-// void ft_simple_swap(t_list *a_list, t_list *b_list)
-// {
-// 	//if(ft_len_stack(list) == 2)
-// 	//sa(&a_list);
-// 	push(&a_list, &b_list);
+int ft_sorted(t_list * list)
+{
+	if(!list)
+		return (1);
+	while (list->next)
+	{
+		if(list->num > list->next->num)
+			return (0);
+		list = list->next;
+	}
+	return (1);
 	
+}
+	
+void ft_sort_3(t_list **a)
+{
+	int top;
+	int mid;
+	int low;
 
-// }
+	if (a == NULL || *a == NULL || (*a)->next == NULL || (*a)->next->next == NULL)
+        return;
+
+	top = (*a)->num;
+	mid = (*a)->next->num;
+	low = (*a)->next->next->num;
+
+	
+	if(top < mid && mid > low && low > top)
+	{
+		sa(a);
+		ra(a);
+	}
+	else if(top > mid && mid < low && low > top)
+		sa(a);
+	else if(top < mid && mid > low && low < top)
+		rra(a);
+	else if(top > mid && mid < low && low < top)
+		ra(a);
+	else if(top > mid && mid > low && low < top)
+	{
+		sa(a);
+		rra(a);
+	}
+}
 
 void ft_push_swap(t_list **a, t_list **b)
 {
+	int len;
+
+	len = ft_len_stack(*a);
+	printf("len = %d\n", len);
+	if(len == 2)
+		sa(a);
+	if(len == 3)
+	{
+		ft_sort_3(a);
+		
+	}
 	//if(ft_len_stack(a) < 5)
 	//ft_simple_swap(a, b);
-	pb(a, b);
-	pb(a, b);
-	pb(a, b);
-	pa(a, b);
-	
-
-	ft_print_Stack(*a);
-	printf("_______________\n");
-	ft_print_Stack(*b);
-	rotate(b);
-	printf("_______________\n");
-	ft_print_Stack(*b);
+	// pb(a, b);
+	// pb(a, b);
+	// pb(a, b);
+	// pa(a, b);
+	// ft_print_Stack(*a);
+	// printf("_______________\n");
+	// ft_print_Stack(*b);
+	// rotate(b);
+	// printf("_______________\n");
+	//ft_print_Stack(*b);
 	// rerotate(a);
 	// rotate(a);
 	// rotate(a);
-	printf("_______________\n");
-	ft_print_Stack(*a);
-	reverseRotate(a);
-	reverseRotate(a);
-	printf("_______________\n");
-	ft_print_Stack(*a);
+	// printf("_______________\n");
+	// ft_print_Stack(*a);
+	// reverseRotate(a);
+	// reverseRotate(a);
+	// printf("_______________\n");
+	// ft_print_Stack(*a);
 	//else
 	//	ft_big_swap(a, b);
 }
@@ -355,20 +412,6 @@ t_list *ft_index_stack(t_list *stack) {
     }
 
     return stack;
-}
-
-int ft_sorted(t_list * list)
-{
-	if(!list)
-		return (1);
-	while (list->next)
-	{
-		if(list->num > list->next->num)
-			return (0);
-		list = list->next;
-	}
-	return (1);
-	
 }
 
 int ft_is_empty(t_list *st)
@@ -588,16 +631,20 @@ int main()
 	// arg[2] = (char*)"8";
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
-	arg[1] = (char*)"7 8  10  11 12 9";
+	arg[1] = (char*)"9 8 7";
 
 	a = ft_creat();
 	b = ft_creat();
 	
 	a = ft_creat_stack(a, argc, arg);
 	ft_print_Stack(a);
+	printf("--------start-------\n");
 	if (!ft_sorted(a))
 	{
-		ft_push_swap(&a, &b);
+	
+		//ft_push_swap(&a, &b);
+		//  printf("----test origin-----\n");
+		  ft_test_sort_3(&a);
 		//ft_print_Stack(a);
 		//ft_print_Stack(b);
 	}
