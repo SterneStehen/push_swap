@@ -387,6 +387,7 @@ void ft_sort_4(t_list **a, t_list **b)
 	pb(a,b);
 	ft_sort_3(a);
 	pa(a,b);
+
 }
 
 void ft_sort_5(t_list **a, t_list **b)
@@ -412,9 +413,108 @@ void ft_sort_5(t_list **a, t_list **b)
 	pb(a,b);
 	ft_sort_4(a, b);
 	pa(a,b);
-	printf("\n---- test5-------\n");
+	
+}
+
+static int	get_max_bits(t_list **stack)
+{
+	t_list	*head;
+	int		max;
+	int		max_bits;
+
+	head = *stack;
+	max = head->index;
+	max_bits = 0;
+	while (head)
+	{
+		if (head->index > max)
+			max = head->index;
+		head = head->next;
+	}
+	while (max != 0) {
+      max = max/2; 
+      max_bits++;
+	}
+	return (max_bits);
+}
+
+
+void ft_sort_all(t_list **a, t_list **b)
+{
+	t_list	*head_a;
+	int		i;
+	int		j;
+	int		size;
+	int		max_bits;
+
+	i = 0;
+	head_a = *a;
+	size = ft_len_stack(head_a);
+	max_bits = get_max_bits(a);
+	while (i < max_bits)
+	{
+		j = 0;
+		while (j++ < size)
+		{
+			head_a = *a;
+
+			int temp = head_a->index;
+			int count = i;
+
+			while (count > 0) 
+			{
+    			temp /= 2;
+    			count--;
+			}
+
+			if ((temp & 1) == 1) 
+			{
+				ra(a);
+			}	
+			else
+			{
+				pb(a, b);
+				printf("to_b = %d\n", (*a)->num);
+			}
+		}
+		while (ft_len_stack(*b) != 0)
+		{
+			pa(a, b);
+			printf("to_a = %d\n", (*a)->num);
+		}
+		i++;
+	}
+	printf("\n---- test6-------\n");
 	ft_print_Stack(*a);
 }
+
+	
+// void ft_sort_all2(t_list **a, t_list **b)
+// {
+// 	int i;
+// 	int j;
+// 	t_list *tmp;
+// 	int ind;
+// 	tmp = *a;
+
+// 	i = 0;
+// 	j = 0;
+// 	int len = ft_len_stack(tmp);
+// 	while (i < len)
+// 	{	
+// 		ind = tmp->index;
+// 		if( ind == i)
+// 		{
+// 			pb(a, b);
+// 			printf("to_b = %d i = %d\n", (*a)->num, i);
+// 			i++;
+// 		}
+// 		else
+// 			ra(a);
+// 	}
+	
+	
+// }
 
 void ft_push_swap(t_list **a, t_list **b)
 {
@@ -435,6 +535,10 @@ void ft_push_swap(t_list **a, t_list **b)
 	if(len == 5)
 	{
 		ft_sort_5(a, b);	
+	}
+	else
+	{
+		ft_sort_all(a, b);
 	}
 	//if(ft_len_stack(a) < 5)
 	//ft_simple_swap(a, b);
@@ -707,7 +811,8 @@ int main()
 	// arg[2] = (char*)"8";
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
-	arg[1] = (char*)"1 7 2 8";
+	//arg[1] = (char*)"1 7 2 8 5 10 44 77 99";
+	arg[1] = (char*)"108 422 110 354 576 777";
 
 	a = ft_creat();
 	b = ft_creat();
