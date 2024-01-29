@@ -431,90 +431,155 @@ static int	get_max_bits(t_list **stack)
 			max = head->index;
 		head = head->next;
 	}
-	while (max != 0) {
+	while (max != 0) 
+	{
       max = max/2; 
       max_bits++;
 	}
 	return (max_bits);
 }
 
+void to_min_element(t_list **list, int min_position)
+{
+	int len;
+	int i;
+
+	i = 0;
+	len = ft_len_stack(*list);
+	if(len/2 > min_position)
+	{
+		while (i < min_position)
+		{
+			ra(list);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < len - min_position)
+		{
+			rra(list);
+			i++;
+		}
+		
+	}
+	
+}
+
+int min_position(t_list *a)
+{
+	t_list *stack;
+	int min_index;
+	int position;
+	int i;
+
+	if (a == NULL)
+        return -1;
+
+	i = 0;
+	position = 0;
+
+	min_index = a->index;
+	stack = a;
+	
+	while (stack != NULL)
+	{
+		if(stack->index < min_index)
+		{
+			min_index = stack->index;
+			position = i;
+		}
+		stack = stack->next;
+		i++;
+	}
+	return position;
+}
+
+// int find_min_index(t_list *stack)
+// {
+//     int min_index_pos = 0;
+//     int current_pos = 0;
+//     int min_index;
+//     if (stack == NULL)
+//         return -1;
+//     min_index = stack->index;
+//     t_list *current = stack;
+//     while (current != NULL)
+//     {
+//         if (current->index < min_index)
+//         {
+//             min_index = current->index;
+//             min_index_pos = current_pos;
+//         }
+//         current = current->next;
+//         current_pos++;
+//     }
+//     return min_index_pos;
+// }
+
 
 void ft_sort_all(t_list **a, t_list **b)
 {
-	t_list	*head_a;
-	int		i;
-	int		j;
-	int		size;
-	int		max_bits;
-
-	i = 0;
-	head_a = *a;
-	size = ft_len_stack(head_a);
-	max_bits = get_max_bits(a);
-	while (i < max_bits)
-	{
-		j = 0;
-		while (j++ < size)
-		{
-			head_a = *a;
-
-			int temp = head_a->index;
-			int count = i;
-
-			while (count > 0) 
-			{
-    			temp /= 2;
-    			count--;
-			}
-
-			if ((temp & 1) == 1) 
-			{
-				ra(a);
-			}	
-			else
-			{
-				pb(a, b);
-				printf("to_b = %d\n", (*a)->num);
-			}
-		}
-		while (ft_len_stack(*b) != 0)
-		{
-			pa(a, b);
-			printf("to_a = %d\n", (*a)->num);
-		}
-		i++;
-	}
-	printf("\n---- test6-------\n");
+    int min_index;
+	while (*a)
+    {
+        min_index = min_position(*a);
+		to_min_element(a, min_index);
+        //bring_to_top(a, min_index);
+        pb(a, b);
+    }
+    while (*b)
+    {
+        pa(a, b);
+    }
 	ft_print_Stack(*a);
 }
 
-	
-// void ft_sort_all2(t_list **a, t_list **b)
-// {
-// 	int i;
-// 	int j;
-// 	t_list *tmp;
-// 	int ind;
-// 	tmp = *a;
+
 
 // 	i = 0;
-// 	j = 0;
-// 	int len = ft_len_stack(tmp);
-// 	while (i < len)
-// 	{	
-// 		ind = tmp->index;
-// 		if( ind == i)
+// 	head_a = *a;
+// 	size = ft_len_stack(head_a);
+// 	max_bits = get_max_bits(a);
+// 	while (i < max_bits)
+// 	{
+// 		j = 0;
+// 		while (j++ < size)
 // 		{
-// 			pb(a, b);
-// 			printf("to_b = %d i = %d\n", (*a)->num, i);
-// 			i++;
+// 			head_a = *a;
+
+// 			int temp = head_a->index;
+// 			int count = i;
+
+// 			while (count > 0) 
+// 			{
+//     			temp /= 2;
+//     			count--;
+// 			}
+
+// 			if ((temp & 1) == 1) 
+// 			{
+// 				ra(a);
+// 			}	
+// 			else
+// 			{
+// 				pb(a, b);
+// 				//printf("to_b = %d\n", (*b)->num);
+// 				ft_print_Stack(*b);
+// 			}
 // 		}
-// 		else
-// 			ra(a);
+// 		while (ft_len_stack(*b) != 0)
+// 		{
+// 			pa(a, b);
+// 			printf("to_a = %d\n", (*a)->num);
+// 		}
+// 		i++;
 // 	}
-	
-	
+// 	printf("\n---- test6-------\n");
+// 	ft_print_Stack(*a);
 // }
+
+
 
 void ft_push_swap(t_list **a, t_list **b)
 {
@@ -812,7 +877,7 @@ int main()
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
 	//arg[1] = (char*)"1 7 2 8 5 10 44 77 99";
-	arg[1] = (char*)"108 422 110 354 576 777";
+	arg[1] = (char*)"108 422 423 354 576 777";
 
 	a = ft_creat();
 	b = ft_creat();
