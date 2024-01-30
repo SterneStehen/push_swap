@@ -21,6 +21,21 @@ typedef struct t_list
 	struct	t_list * next;
 }t_list;
 
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*tmp;
+
+	if (!lst )
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
+	}
+	//free(lst);
+}
+
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
@@ -346,26 +361,26 @@ void ft_sort_3(t_list **a)
 
 int ft_find_min_num(t_list *a)
 {
-	t_list *list;
+	//t_list *list;
 	int count;
 	int resul;
 	int min;
 
 	if(a == NULL)
 		return (-1);
-	list = a;
-	min = list->num;
+	//list = a;
+	min = a->num;
 	count = 0;
 	resul = 0;
 
-	while (list != NULL)
+	while (a != NULL)
 	{
-		if(list->num < min)
+		if(a->num < min)
 		{
-			min = list->num;
+			min = a->num;
 			resul = count;
 		}
-		list = list->next;
+		a = a->next;
 		count++;
 	}
 	return (resul);
@@ -416,30 +431,29 @@ void ft_sort_5(t_list **a, t_list **b)
 	
 }
 
-static int	get_max_bits(t_list **stack)
-{
-	t_list	*head;
-	int		max;
-	int		max_bits;
+// static int	get_max_bits(t_list **stack)
+// {
+// 	t_list	*head;
+// 	int		max;
+// 	int		max_bits;
+// 	head = *stack;
+// 	max = head->index;
+// 	max_bits = 0;
+// 	while (head)
+// 	{
+// 		if (head->index > max)
+// 			max = head->index;
+// 		head = head->next;
+// 	}
+// 	while (max != 0) 
+// 	{
+//       max = max/2; 
+//       max_bits++;
+// 	}
+// 	return (max_bits);
+// }
 
-	head = *stack;
-	max = head->index;
-	max_bits = 0;
-	while (head)
-	{
-		if (head->index > max)
-			max = head->index;
-		head = head->next;
-	}
-	while (max != 0) 
-	{
-      max = max/2; 
-      max_bits++;
-	}
-	return (max_bits);
-}
-
-void to_min_element(t_list **list, int min_position)
+void ft_to_min_element(t_list **list, int min_position)
 {
 	int len;
 	int i;
@@ -466,7 +480,7 @@ void to_min_element(t_list **list, int min_position)
 	
 }
 
-int min_position(t_list *a)
+int ft_min_position(t_list *a)
 {
 	t_list *stack;
 	int min_index;
@@ -523,8 +537,9 @@ void ft_sort_all(t_list **a, t_list **b)
     int min_index;
 	while (*a)
     {
-        min_index = min_position(*a);
-		to_min_element(a, min_index);
+        min_index = ft_min_position(*a);
+		//min_index - ft_find_min_num(*a);
+		ft_to_min_element(a, min_index);
         //bring_to_top(a, min_index);
         pb(a, b);
     }
@@ -534,52 +549,6 @@ void ft_sort_all(t_list **a, t_list **b)
     }
 	ft_print_Stack(*a);
 }
-
-
-
-// 	i = 0;
-// 	head_a = *a;
-// 	size = ft_len_stack(head_a);
-// 	max_bits = get_max_bits(a);
-// 	while (i < max_bits)
-// 	{
-// 		j = 0;
-// 		while (j++ < size)
-// 		{
-// 			head_a = *a;
-
-// 			int temp = head_a->index;
-// 			int count = i;
-
-// 			while (count > 0) 
-// 			{
-//     			temp /= 2;
-//     			count--;
-// 			}
-
-// 			if ((temp & 1) == 1) 
-// 			{
-// 				ra(a);
-// 			}	
-// 			else
-// 			{
-// 				pb(a, b);
-// 				//printf("to_b = %d\n", (*b)->num);
-// 				ft_print_Stack(*b);
-// 			}
-// 		}
-// 		while (ft_len_stack(*b) != 0)
-// 		{
-// 			pa(a, b);
-// 			printf("to_a = %d\n", (*a)->num);
-// 		}
-// 		i++;
-// 	}
-// 	printf("\n---- test6-------\n");
-// 	ft_print_Stack(*a);
-// }
-
-
 
 void ft_push_swap(t_list **a, t_list **b)
 {
@@ -605,6 +574,8 @@ void ft_push_swap(t_list **a, t_list **b)
 	{
 		ft_sort_all(a, b);
 	}
+	ft_lstclear(a);
+	ft_lstclear(b);
 	//if(ft_len_stack(a) < 5)
 	//ft_simple_swap(a, b);
 	// pb(a, b);
@@ -756,20 +727,6 @@ char	**ft_split(char const *s, char c)
 	return (result);
 }
 
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*tmp;
-
-	if (!lst )
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		free(*lst);
-		*lst = tmp;
-	}
-}
-
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
@@ -826,23 +783,18 @@ int	ft_atoi(const char *nptr)
 t_list * ft_creat()
 {
 	t_list * creat;
-	creat = (t_list *)malloc(sizeof(t_list));
+	//creat = (t_list *)malloc(sizeof(t_list));
 	creat = NULL;
-
-	// t_list *st = malloc(sizeof(t_list));
-	// ft_init(st);
 	return creat;
 }
 
 t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 {
 	int i;
-	int count;
 	int digit;
 	t_list * tmp;
 	char **av;
 
-	count = 0;
 	i = 0;
 	if (ac == 2)
 	{
@@ -861,10 +813,20 @@ t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 		i++;
 	}
 	a = ft_index_stack(a);
+	if (ac == 2) 
+	{
+    	i = 0;
+    	while (av[i]) 
+		{
+        	free(av[i]);
+        	i++;
+    	}
+    	free(av);
+	}
+
 	return (a);
 }
 
-//int main(int argc, char*argv[])
 int main()
 {
 	t_list *a;
@@ -876,7 +838,7 @@ int main()
 	// arg[2] = (char*)"8";
  	// arg[3] = (char*)"9";
 	// arg[4] = (char*)"10";
-	//arg[1] = (char*)"1 7 2 8 5 10 44 77 99";
+	//arg[1] = (char*)"3179, 3674, 1287, 3007, 1726, 4589, 2170, 2883, 2771, 4815, 1160, 915, 1911, 4333, 751, 1625, 2058, 2879, 1619, 676, 4317, 4550, 789, 992, 2539, 3931, 2971, 4296, 4726, 403, 3682, 2316, 4751, 4538, 2470, 4564, 3661, 1114, 4704, 3838, 355, 3666, 4249, 2219, 3853, 1570, 2043, 4146, 3020, 2680, 639, 3445, 4874, 1776, 1364, 760, 1623, 4540, 3968, 861, 2458, 2193, 4548, 2936, 1967, 3885, 159, 1097, 2590, 4432, 489, 931, 2157, 467, 4567, 4709, 96, 892, 4221, 2314, 3376, 2237, 130, 1323, 2126, 542, 4108, 4390, 4506, 613, 3371, 1488, 2709, 2760, 3834, 2083, 1579, 1300, 2727, 1047, 4555, 3471, 3876, 2154, 897, 959, 4339, 2404, 3781, 2835, 2886, 1372, 2631, 234, 2298, 767, 4144, 1621, 3043, 2454, 1396, 821, 1642, 4885, 1840, 1054, 4872, 4557, 3616, 703, 1391, 1658, 129, 4844, 2958, 4536, 1411, 4251, 3222, 4271, 3982, 1014, 3502, 836, 2561, 4518, 1754, 1682, 1510, 1468, 4953, 3608, 525, 3985, 2836, 1479, 3508, 1150, 318, 1465, 666, 3255, 3399, 2731, 2123, 4581, 3951, 3115, 936, 4384, 2448, 4476, 4678, 2723, 1808, 2577, 241, 835, 3649, 3734, 362, 1211, 4349, 4264, 3368, 643, 2227, 1246, 7, 1802, 4474, 4600, 1028, 1819, 3883, 4768, 211, 3547, 2342, 1480, 367, 2998, 2984, 443, 1043, 4794, 1639, 4444, 2311, 1955, 4069, 2429, 3672, 4242, 2538, 87, 2770, 2875, 2752, 335, 4022, 233, 3342, 1673, 4240, 4991, 3872, 2073, 2701, 42, 2811, 2090, 3971, 4901, 267, 1763, 4071, 1416, 3945, 4884, 126, 3071, 1238, 2079, 3832, 3135, 1898, 4407, 461, 3181";
 	arg[1] = (char*)"108 422 423 354 576 777";
 
 	a = ft_creat();
@@ -895,6 +857,6 @@ int main()
 		//ft_print_Stack(b);
 	}
 	
-	ft_lstclear(&a);
-	ft_lstclear(&b);
+	//ft_lstclear(&a);
+	//ft_lstclear(&b);
 }
