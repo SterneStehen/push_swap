@@ -9,17 +9,7 @@
 /*   Updated: 2024/01/23 14:51:59 by smoreron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: smoreron <7353718@gmail.com>               +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 14:51:59 by smoreron          #+#    #+#             */
-/*   Updated: 2024/01/23 14:51:59 by smoreron         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "push_swap.h"
 
@@ -46,6 +36,7 @@ void ft_push_swap(t_list **a, t_list **b)
 	{
 		ft_sort_all(a, b);
 	}
+	//ft_print_Stack(*a);
 	ft_lstclear(a);
 	ft_lstclear(b);
 	//if(ft_len_stack(a) < 5)
@@ -54,7 +45,7 @@ void ft_push_swap(t_list **a, t_list **b)
 	// pb(a, b);
 	// pb(a, b);
 	// pa(a, b);
-	// ft_print_Stack(*a);
+	
 	// printf("_______________\n");
 	// ft_print_Stack(*b);
 	// rotate(b);
@@ -92,7 +83,7 @@ int main(int ac, char *av[])
 	
 	a = ft_creat_stack(a, ac, av);
 	//ft_print_Stack(a);
-	printf("--------start-------\n");
+	//printf("--------start-------\n");
 	if (!ft_sorted(a))
 	{
 	

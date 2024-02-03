@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = push_swap
 
 CC = cc
@@ -21,29 +20,26 @@ MAKE = make
 INCS = push_swap.h
 SRC = push_swap.c atoi.c creat_stack.c index.c is_sorted.c list_util.c minim.c push.c rev_rotate.c rotate.c sorted.c split.c swap.c
 
-OBJ = obj
-OBJS = $(SRC:%.c=$(OBJ)/%.o)
 
-
+OBJS = $(SRC:%.c=%.o)
 
 all:			$(NAME)
 
-$(NAME):		$(OBJ) $(OBJS)
+
+$(NAME):		$(OBJS)
 				$(CC) $(OBJS) -o $(NAME) $(CFLAGS) $(LFLAGS)
 
-$(OBJ):
-				mkdir $(OBJ)
 
-$(OBJ)/%.o:	%.c $(INCS)
+%.o:	%.c $(INCS)
 				$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
-				$(RM) $(OBJ)
+
+				$(RM) $(OBJS)
 
 fclean: 		clean
 				$(RM) $(NAME)
 
 re:				fclean all
 
-
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re

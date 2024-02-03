@@ -61,3 +61,8 @@ void ft_print_Stack(t_list * st)
 	}
 	//printf("test st->n = %d\n", st->n);
 }
+
+
+
+
+	
