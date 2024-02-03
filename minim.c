@@ -16,6 +16,7 @@
 int ft_find_min_num(t_list *a)
 {
 	//t_list *list;
+	
 	int count;
 	int resul;
 	int min;
