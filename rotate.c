@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smoreron <7353718@gmail.com>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/03 16:05:36 by smoreron          #+#    #+#             */
+/*   Updated: 2024/02/03 16:05:36 by smoreron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -35,6 +46,7 @@ int rb(t_list **b_list)
 	return (0);
 }
 
+
 int rr(t_list **a_list, t_list **b_list)
 {
 	if ((a_list == NULL || *a_list == NULL || (*a_list)->next == NULL) ||
@@ -52,4 +64,3 @@ int rr(t_list **a_list, t_list **b_list)
 	ft_putstr_fd("rr\n", 1);
 	return (0);
 }
-

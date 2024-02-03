@@ -1,51 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoreron <7353718@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/03 16:24:01 by smoreron          #+#    #+#             */
-/*   Updated: 2024/02/03 16:24:01 by smoreron         ###   ########.fr       */
+/*   Created: 2024/02/03 16:28:44 by smoreron          #+#    #+#             */
+/*   Updated: 2024/02/03 16:28:44 by smoreron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 
-t_list *ft_index_stack(t_list *stack) {
-    t_list *head;
-    int index = 0;
-
-    while ((head = ft_min_stack_start(stack))) 
-	{  
-        head->index = index++;
-    }
-
-    return stack;
-}
-
-
-size_t	ft_strlen(const char *str)
+int	ft_atoi(const char *nptr)
 {
-	size_t	i;
+	int		i;
+	int		neg;
+	long	num;
 
 	i = 0;
-	while (str[i] != '\0')
+	num = 0;
+	neg = 1;
+	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == 43 || nptr[i] == 45)
 	{
+		if (nptr[i] == 45)
+			neg = -1 * neg;
 		i++;
 	}
-	return (i);
-}
-
-
-int ft_len_stack(t_list *list) 
-{
-    int count = 0;
-    while (list) 
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-        count++;
-        list = list->next;
-    }
-    return (count);
+		num = (num * 10) + (nptr[i] - '0');
+		i++;
+	}
+	return (num * neg);
 }
