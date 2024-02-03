@@ -15,8 +15,8 @@
 	
 int ft_find_min_num(t_list *a)
 {
-	//t_list *list;
-	
+	//t_list *lis5t;
+
 	int count;
 	int resul;
 	int min;
