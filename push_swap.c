@@ -20,15 +20,15 @@ void ft_push_swap(t_list **a, t_list **b)
 	len = ft_len_stack(*a);
 	if(len == 2)
 		sa(a);
-	if(len == 3)
+	else if(len == 3)
 	{
 		ft_sort_3(a);	
 	}
-	if(len == 4)
+	else if(len == 4)
 	{
 		ft_sort_4(a, b);	
 	}
-	if(len == 5)
+	else if(len == 5)
 	{
 		ft_sort_5(a, b);	
 	}

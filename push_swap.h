@@ -16,6 +16,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+# include "./libft/libft.h"
+
 typedef struct t_list
 {
 	int	num;
@@ -57,7 +59,7 @@ t_list *ft_index_stack(t_list *stack);
 int ft_is_empty(t_list *st);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int	ft_world_count( char const *str, char c);
+int	ft_word_count( char const *str, char c);
 char	**ft_split(char const *s, char c);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(int content);

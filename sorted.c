@@ -24,22 +24,23 @@ void ft_sort_3(t_list **a)
 	top = (*a)->num;
 	mid = (*a)->next->num;
 	low = (*a)->next->next->num;
-	if(top < mid && mid > low && low > top)
+	if(top > mid && mid > low)
 	{
 		sa(a);
 		ra(a);
 	}
-	else if(top > mid && mid < low && low > top)
+	else if(top > mid && mid < low && top > low)
 		sa(a);
-	else if(top < mid && mid > low && low < top)
+	else if(top < mid && mid > low && top > low)
 		rra(a);
 	else if(top > mid && mid < low && low < top)
 		ra(a);
-	else if(top > mid && mid > low && low < top)
+	else if(top < mid && mid > low && top < low)
 	{
 		sa(a);
 		rra(a);
 	}
+	//ft_print_Stack(*a);
 }
 
 

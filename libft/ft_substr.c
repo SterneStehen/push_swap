@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoreron <7353718@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/03 16:26:52 by smoreron          #+#    #+#             */
-/*   Updated: 2024/02/03 16:26:52 by smoreron         ###   ########.fr       */
+/*   Created: 2023/10/21 15:20:25 by smoreron          #+#    #+#             */
+/*   Updated: 2023/10/30 16:57:52 by smoreron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
+// #include <stdio.h>
+// #include <string.h>
+// #include <stdlib.h>
+#include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -42,53 +44,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-int	ft_word_count( char const *str, char c)
-{
-	int	count;
-	int	in_word;
-
-	count = 0;
-	in_word = 0;
-	while (*str)
-	{
-		if (*str == c)
-		{
-			in_word = 0;
-		}
-		else if (!in_word)
-		{
-			in_word = 1;
-			count++;
-		}
-		str++;
-	}
-	return (count);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	int		world_count;	
-	int		i;
-	int		j;
-	int		start;
-	char	**result;
-
-	i = 0;
-	j = 0;
-	world_count = ft_word_count(s, c);
-	result = (char **)malloc(sizeof(char *) * (world_count + 1));
-	if (!result)
-		return (NULL);
-	while (s[i])
-	{
-		while ((s[i] == c) && s[i])
-			i++;
-		start = i;
-		while (s[i] != c && s[i])
-			i++;
-		if (i > start)
-			result[j++] = ft_substr(s, start, (i - start));
-	}
-	result[j] = NULL;
-	return (result);
-}
+// int main()
+// {
+// 	char const s1[20] = "sergiiMorarenko";	
+// 	unsigned int star = 3;
+// 	size_t lenght = 8;
+// 	char *resul = ft_substr(s1, star, lenght);
+// 	puts(resul);
+// }
