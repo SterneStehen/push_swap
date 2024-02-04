@@ -26,9 +26,29 @@ int ft_sorted(t_list * list)
 	
 }
 
-
-
 int ft_is_empty(t_list *st)
 {
 		return (st->num == 0);
+}
+
+int	ft_isnum(char *num)
+{
+	int	i;
+
+	i = 0;
+	if (num[i] == '-')
+		i++;
+	while (num[i])
+	{
+		if (!ft_isdigit(num[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_error(char *c)
+{
+	ft_putendl_fd(c, 1);
+	exit(0);
 }

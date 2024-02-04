@@ -20,7 +20,7 @@ int rotate(t_list **list)
 	t_list *end;
 	tmp = *list;
     *list = (*list)->next;
-    end = ft_lstlast(tmp);
+    end = ft_listlast(tmp);
     end->next = tmp;
     tmp->next = NULL;
     return 0;

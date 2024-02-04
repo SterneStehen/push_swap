@@ -24,7 +24,7 @@ t_list * ft_creat()
 t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 {
 	int i;
-	int digit;
+	long int digit;
 	t_list * tmp;
 	char **av;
 
@@ -40,9 +40,13 @@ t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 	}
 	while (av[i])
 	{
+		if (!ft_isnum(av[i]))
+			ft_error("Error");
 		digit = ft_atoi(av[i]);
-		tmp = ft_lstnew(digit);
-		ft_lstadd_back(&a, tmp);
+		if ((digit < -2147483648) || (digit > 2147483647))
+			ft_error("Error");
+		tmp = ft_listnew(digit);
+		ft_listadd_back(&a, tmp);
 		i++;
 	}
 	a = ft_index_stack(a);
@@ -61,7 +65,7 @@ t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 }
 
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_listadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
 
@@ -72,11 +76,11 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 		return ;
 	}
-	last = ft_lstlast(*lst);
+	last = ft_listlast(*lst);
 	last->next = new;
 }
 
-t_list	*ft_lstnew(int content)
+t_list	*ft_listnew(int content)
 {
 	t_list	*new_list;
 

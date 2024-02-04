@@ -26,19 +26,6 @@ t_list *ft_index_stack(t_list *stack) {
 }
 
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-
 int ft_len_stack(t_list *list) 
 {
     int count = 0;

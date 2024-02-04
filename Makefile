@@ -9,7 +9,6 @@
 #    Updated: 2024/02/03 16:43:01 by smoreron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME = push_swap
 
 CC = cc
@@ -17,29 +16,34 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 MAKE = make
 
-INCS = push_swap.h
-SRC = push_swap.c atoi.c creat_stack.c index.c is_sorted.c list_util.c minim.c push.c rev_rotate.c rotate.c sorted.c split.c swap.c
+LIBFT = libft/libft.a
+LIBFT_DIR = libft/
+LFLAGS = -L$(LIBFT_DIR) -lft
 
+INCS = push_swap.h
+SRC = push_swap.c creat_stack.c index.c is_sorted.c list_util.c minim.c ab_push.c rev_rotate.c rotate.c sorted.c swap.c
 
 OBJS = $(SRC:%.c=%.o)
 
-all:			$(NAME)
+all: $(LIBFT) $(NAME)
 
+$(LIBFT):
+		$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME):		$(OBJS)
-				$(CC) $(OBJS) -o $(NAME) $(CFLAGS) $(LFLAGS)
+$(NAME): $(OBJS)
+		$(CC) $(OBJS) -o $(NAME) $(CFLAGS) $(LFLAGS)
 
-
-%.o:	%.c $(INCS)
-				$(CC) -c $< -o $@ $(CFLAGS)
+%.o: %.c $(INCS)
+		$(CC) -c $< -o $@ $(CFLAGS) -I$(LIBFT_DIR)
 
 clean:
+		$(RM) $(OBJS)
+		$(MAKE) -C $(LIBFT_DIR) clean
 
-				$(RM) $(OBJS)
+fclean: clean
+		$(RM) $(NAME)
+		$(MAKE) -C $(LIBFT_DIR) fclean
 
-fclean: 		clean
-				$(RM) $(NAME)
-
-re:				fclean all
+re: fclean all
 
 .PHONY: all clean fclean re

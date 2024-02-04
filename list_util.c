@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_lstclear(t_list **lst)
+void	ft_listclear(t_list **lst)
 {
 	t_list	*tmp;
 
@@ -27,7 +27,7 @@ void	ft_lstclear(t_list **lst)
 	//free(lst);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+t_list	*ft_listlast(t_list *lst)
 {
 	if (!lst)
 		return (NULL);
