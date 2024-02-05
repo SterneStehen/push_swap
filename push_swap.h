@@ -69,5 +69,6 @@ t_list * ft_creat();
 t_list *ft_creat_stack(t_list *a, int ac, char * argv[]);
 int	ft_isnum(char *num);
 void	ft_error(char *c);
+int ft_duble(int digit, char **av, int i);
 
 #endif

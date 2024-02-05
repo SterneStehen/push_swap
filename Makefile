@@ -21,7 +21,7 @@ LIBFT_DIR = libft/
 LFLAGS = -L$(LIBFT_DIR) -lft
 
 INCS = push_swap.h
-SRC = push_swap.c creat_stack.c index.c is_sorted.c list_util.c minim.c ab_push.c rev_rotate.c rotate.c sorted.c swap.c
+SRC = push_swap.c creat_stack.c index.c is_digit.c is_sorted.c list_util.c minim.c ab_push.c rev_rotate.c rotate.c sorted.c swap.c
 
 OBJS = $(SRC:%.c=%.o)
 

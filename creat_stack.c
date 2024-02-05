@@ -40,11 +40,11 @@ t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 	}
 	while (av[i])
 	{
-		if (!ft_isnum(av[i]))
-			ft_error("Error");
 		digit = ft_atoi(av[i]);
-		if ((digit < -2147483648) || (digit > 2147483647))
-			ft_error("Error");
+		if (!ft_isnum(av[i]) || !ft_duble(digit, av, i))
+			ft_error("Error\n");
+		// if ((digit < -2147483648) || (digit > 2147483647))
+		// 	ft_error("Error");
 		tmp = ft_listnew(digit);
 		ft_listadd_back(&a, tmp);
 		i++;

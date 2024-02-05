@@ -19,7 +19,7 @@ void ft_push_swap(t_list **a, t_list **b)
 
 	len = ft_len_stack(*a);
 	if(len == 2)
-		sa(a);
+		ra(a);
 	else if(len == 3)
 	{
 		ft_sort_3(a);	

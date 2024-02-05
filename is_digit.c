@@ -1,33 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_sorted.c                                        :+:      :+:    :+:   */
+/*   is_digit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smoreron <7353718@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/03 16:25:37 by smoreron          #+#    #+#             */
-/*   Updated: 2024/02/03 16:25:37 by smoreron         ###   ########.fr       */
+/*   Created: 2024/02/05 20:32:08 by smoreron          #+#    #+#             */
+/*   Updated: 2024/02/05 20:32:08 by smoreron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ft_sorted(t_list * list)
+int	ft_isnum(char *num)
 {
-	if(!list)
-		return (1);
-	while (list->next)
+	int	i;
+
+	i = 0;
+	if (num[i] == '-')
+		i++;
+	while (num[i])
 	{
-		if(list->num > list->next->num)
+		if (!ft_isdigit(num[i]))
 			return (0);
-		list = list->next;
+		i++;
 	}
 	return (1);
-	
 }
 
-int ft_is_empty(t_list *st)
+void	ft_error(char *c)
 {
-		return (st->num == 0);
+	ft_putstr_fd(c, 1);
+	exit(0);
 }
 
+int ft_duble(int digit, char **av, int i)
+{
+	i++;
+	while (av[i])
+	{
+		if (ft_atoi(av[i]) == digit)
+			return (0);
+		i++;
+	}
+	return (1);
+}

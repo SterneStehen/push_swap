@@ -27,22 +27,25 @@ void ft_sort_3(t_list **a)
 	if(top > mid && mid > low)
 	{
 		sa(a);
-		ra(a);
+		rra(a);
 	}
 	else if(top > mid && mid < low && top > low)
 		sa(a);
 	else if(top < mid && mid > low && top > low)
 		rra(a);
-	else if(top > mid && mid < low && low < top)
-		ra(a);
+	// else if(top > mid && mid < low && top < low)
+	// 	ra(a);
 	else if(top < mid && mid > low && top < low)
 	{
 		sa(a);
 		rra(a);
 	}
+	else if (top > mid && mid < low && top < low) 
+	{
+        sa(a);
+	}
 	//ft_print_Stack(*a);
 }
-
 
 void ft_sort_4(t_list **a, t_list **b)
 {
@@ -107,3 +110,4 @@ void ft_sort_all(t_list **a, t_list **b)
     }
 	//ft_print_Stack(*a);
 }
+
