@@ -11,84 +11,84 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
+
+#include <limits.h> // Для использования INT_MIN и INT_MAX
+
+void	ft_input_audit(int ac, char **av)
+{
+	char		**input;
+	int			i;
+	long int	digit;
+
+	i = 0;
+	if (ac == 2)
+	{
+		input = ft_split(av[1], ' ');
+		if (!input || *(input) == NULL)
+			ft_free_split(input);
+	}
+	else
+		input = av + 1;
+	while (input[i] != NULL)
+	{
+		digit = ft_atoi(input[i]);
+		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i)
+			|| digit < INT_MIN || digit > INT_MAX)
+		{
+			ft_error("Error\n");
+		}
+		i++;
+	}
+	if (ac == 2)
+		ft_free_split(input);
+}
 
 
 t_list * ft_creat()
 {
 	t_list * creat;
-	//creat = (t_list *)malloc(sizeof(t_list));
 	creat = NULL;
 	return creat;
+}
+
+void ft_free_split(char **av)
+{
+	int i;
+	i = 0;
+    while (av[i]) 
+	{
+       	free(av[i]);
+       	i++;
+    }
+    free(av);
+	ft_error("Error\n");
 }
 
 t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 {
 	int i;
-	long int digit;
+	long digit;
 	t_list * tmp;
 	char **av;
 
 	i = 0;
 	if (ac == 2)
-	{
 		av = ft_split(argv[1], ' ');
-	}
 	else
-	{
-		av = argv;
-		i = 1;
-	}
+		av = argv + 1;
 	while (av[i])
 	{
 		digit = ft_atoi(av[i]);
-		if (!ft_isnum(av[i]) || !ft_duble(digit, av, i))
-			ft_error("Error\n");
-		// if ((digit < -2147483648) || (digit > 2147483647))
-		// 	ft_error("Error");
 		tmp = ft_listnew(digit);
 		ft_listadd_back(&a, tmp);
 		i++;
 	}
 	a = ft_index_stack(a);
+
 	if (ac == 2) 
-	{
-    	i = 0;
-    	while (av[i]) 
-		{
-        	free(av[i]);
-        	i++;
-    	}
-    	free(av);
-	}
+		ft_free_split(av);
 
 	return (a);
 }
 
-
-void	ft_listadd_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
-
-	if (!new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	last = ft_listlast(*lst);
-	last->next = new;
-}
-
-t_list	*ft_listnew(int content)
-{
-	t_list	*new_list;
-
-	new_list = (t_list *) malloc(sizeof(t_list));
-	if (!new_list)
-		return (NULL);
-	new_list->num = content;
-	new_list->index = -1;
-	new_list->next = NULL;
-	return (new_list);
-}

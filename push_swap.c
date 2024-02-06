@@ -64,28 +64,20 @@ void ft_push_swap(t_list **a, t_list **b)
 	//	ft_big_swap(a, b);
 }
 
-int main(int ac, char *av[])
+int main(int argc, char *argv[])
 {
 	t_list *a;
 	t_list *b;
 	
-	if (ac < 2)
+	if (argc < 2)
 		return (-1);
-
+	ft_input_audit(argc, argv);
 	a = ft_creat();
 	b = ft_creat();
-	
-	a = ft_creat_stack(a, ac, av);
-	//ft_print_Stack(a);
-	//printf("--------start-------\n");
+	a = ft_creat_stack(a, argc, argv);
 	if (!ft_sorted(a))
 	{
-	
 		ft_push_swap(&a, &b);
-		//  printf("----test origin-----\n");
-		// ft_test_sort_3(&a);
-		//ft_print_Stack(a);
-		//ft_print_Stack(b);
 	}
 	
 	//ft_lstclear(&a);

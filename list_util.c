@@ -38,31 +38,33 @@ t_list	*ft_listlast(t_list *lst)
 	return (lst);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_listadd_back(t_list **lst, t_list *new)
 {
-	int	i;
+	t_list	*last;
 
-	i = 0;
-	if (!s)
+	if (!new)
 		return ;
-	while (s[i])
+	if (!*lst)
 	{
-		write(fd, &s[i], 1);
-		i++;
+		*lst = new;
+		return ;
 	}
+	last = ft_listlast(*lst);
+	last->next = new;
 }
 
-void ft_print_Stack(t_list * st)
+t_list	*ft_listnew(int content)
 {
-	while (st != NULL)
-	{
-		printf("st->num = %d  st->index = %d\n", st->num, st->index);
-		st = st->next;
-	}
-	//printf("test st->n = %d\n", st->n);
+	t_list	*new_list;
+
+	new_list = (t_list *) malloc(sizeof(t_list));
+	if (!new_list)
+		return (NULL);
+	new_list->num = content;
+	new_list->index = -1;
+	new_list->next = NULL;
+	return (new_list);
 }
-
-
 
 
 	

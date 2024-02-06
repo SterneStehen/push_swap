@@ -36,3 +36,27 @@ int ft_len_stack(t_list *list)
     }
     return (count);
 }
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+}
+
+void ft_print_Stack(t_list * st)
+{
+	while (st != NULL)
+	{
+		printf("st->num = %d  st->index = %d\n", st->num, st->index);
+		st = st->next;
+	}
+	//printf("test st->n = %d\n", st->n);
+}

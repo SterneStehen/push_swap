@@ -26,19 +26,19 @@ void ft_sort_3(t_list **a)
 	low = (*a)->next->next->num;
 	if(top > mid && mid > low)
 	{
+		ra(a);
 		sa(a);
-		rra(a);
 	}
 	else if(top > mid && mid < low && top > low)
-		sa(a);
+		ra(a);
 	else if(top < mid && mid > low && top > low)
 		rra(a);
 	// else if(top > mid && mid < low && top < low)
 	// 	ra(a);
 	else if(top < mid && mid > low && top < low)
 	{
-		sa(a);
 		rra(a);
+		sa(a);
 	}
 	else if (top > mid && mid < low && top < low) 
 	{

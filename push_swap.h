@@ -70,5 +70,7 @@ t_list *ft_creat_stack(t_list *a, int ac, char * argv[]);
 int	ft_isnum(char *num);
 void	ft_error(char *c);
 int ft_duble(int digit, char **av, int i);
+void ft_free_split(char **av);
+void ft_input_audit(int ac, char **av);
 
 #endif
