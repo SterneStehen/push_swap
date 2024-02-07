@@ -33,23 +33,16 @@ void	ft_input_audit(int ac, char **av)
 	while (input[i] != NULL)
 	{
 		digit = ft_atoi(input[i]);
-		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i)
-			|| digit < INT_MIN || digit > INT_MAX)
+		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i) || digit <= -2147483648 || digit >= 2147483647)
 		{
-			ft_error("Error\n");
+			if (ac == 2)
+				ft_free_split(input);
+			ft_error();
 		}
 		i++;
 	}
 	if (ac == 2)
 		ft_free_split(input);
-}
-
-
-t_list * ft_creat()
-{
-	t_list * creat;
-	creat = NULL;
-	return creat;
 }
 
 void ft_free_split(char **av)
@@ -62,7 +55,8 @@ void ft_free_split(char **av)
        	i++;
     }
     free(av);
-	ft_error("Error\n");
+	
+	//ft_error("Error");
 }
 
 t_list *ft_creat_stack(t_list *a, int ac, char * argv[])

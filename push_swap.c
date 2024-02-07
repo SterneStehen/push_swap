@@ -79,7 +79,11 @@ int main(int argc, char *argv[])
 	{
 		ft_push_swap(&a, &b);
 	}
+	else
+	{
+		ft_listclear(&a);
+		ft_listclear(&b);
+	}
 	
-	//ft_lstclear(&a);
-	//ft_lstclear(&b);
+	
 }

@@ -68,9 +68,11 @@ int	ft_is_digit(int c);
 t_list * ft_creat();
 t_list *ft_creat_stack(t_list *a, int ac, char * argv[]);
 int	ft_isnum(char *num);
-void	ft_error(char *c);
+void	ft_error();
 int ft_duble(int digit, char **av, int i);
 void ft_free_split(char **av);
 void ft_input_audit(int ac, char **av);
+int	get_max_bits(t_list **stack);
+void ft_sort_all(t_list **a, t_list **b);
 
 #endif

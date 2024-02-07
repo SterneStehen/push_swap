@@ -65,6 +65,11 @@ t_list	*ft_listnew(int content)
 	new_list->next = NULL;
 	return (new_list);
 }
-
+t_list * ft_creat()
+{
+	t_list * creat;
+	creat = NULL;
+	return (creat);
+}
 
 	
