@@ -22,14 +22,14 @@ typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}					s_list;
+}	t_lst;
 
 typedef struct t_list
 {
-	int	num;
-	int	index;
-	struct	t_list * next;
-}t_list;
+	int				num;
+	int				index;
+	struct t_list	*next;
+}	t_list;
 
 int					ft_atoi(const char *nptr);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);

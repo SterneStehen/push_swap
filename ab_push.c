@@ -12,21 +12,21 @@
 
 #include "push_swap.h"
 
-int	push(t_list **a_list, t_list **b_list) 
+int	push(t_list **a_list, t_list **b_list)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
-	if (a_list == NULL || (*a_list) == NULL) 
+	if (a_list == NULL || (*a_list) == NULL)
 	{
-		return -1;
+		return (-1);
 	}
 	tmp = *a_list;
 	*a_list = (*a_list)->next;
-	if (*b_list != NULL) 
+	if (*b_list != NULL)
 	{
 		tmp->next = *b_list;
 	}
-	else 
+	else
 	{
 		tmp->next = NULL;
 	}
@@ -34,24 +34,28 @@ int	push(t_list **a_list, t_list **b_list)
 	return (0);
 }
 
-int pb(t_list **a_list, t_list **b_list) 
+int	pb(t_list **a_list, t_list **b_list)
 {
-    int result = push(a_list, b_list);
-    if (result == -1)
+	int	result;
+
+	result = push(a_list, b_list);
+	if (result == -1)
 	{
-        return -1;
-    }
-    ft_putstr_fd("pb\n", 1);
-    return 0;
+		return (-1);
+	}
+	ft_putstr_fd("pb\n", 1);
+	return (0);
 }
 
-int pa(t_list **a_list, t_list **b_list) 
+int	pa(t_list **a_list, t_list **b_list)
 {
-    int result = push(b_list, a_list);
-    if (result == -1) 
+	int	result;
+
+	result = push(b_list, a_list);
+	if (result == -1)
 	{
-        return -1;
-    }
-    ft_putstr_fd("pa\n", 1);
-    return 0;
+		return (-1);
+	}
+	ft_putstr_fd("pa\n", 1);
+	return (0);
 }

@@ -12,55 +12,58 @@
 
 #include "push_swap.h"
 
-int rotate(t_list **list) 
+int	rotate(t_list **list)
 {
-    if (list == NULL || *list == NULL || (*list)->next == NULL) 
-        return -1;
-    t_list *tmp;
-	t_list *end;
+	t_list	*tmp;
+	t_list	*end;
+
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
+		return (-1);
 	tmp = *list;
-    *list = (*list)->next;
-    end = ft_listlast(tmp);
-    end->next = tmp;
-    tmp->next = NULL;
-    return 0;
+	*list = (*list)->next;
+	end = ft_listlast(tmp);
+	end->next = tmp;
+	tmp->next = NULL;
+	return (0);
 }
 
-int ra(t_list **a_list)
+int	ra(t_list **a_list)
 {
-	int result;
+	int	result;
+
 	result = rotate(a_list);
-	if(result == -1)
-		return(-1);
+	if (result == -1)
+		return (-1);
 	ft_putstr_fd("ra\n", 1);
 	return (0);
 }
 
-int rb(t_list **b_list)
+int	rb(t_list **b_list)
 {
-	int result;
+	int	result;
+
 	result = rotate(b_list);
-	if(result == -1)
-		return(-1);
+	if (result == -1)
+		return (-1);
 	ft_putstr_fd("rb\n", 1);
 	return (0);
 }
 
-
-int rr(t_list **a_list, t_list **b_list)
+int	rr(t_list **a_list, t_list **b_list)
 {
-	if ((a_list == NULL || *a_list == NULL || (*a_list)->next == NULL) ||
-        (b_list == NULL || *b_list == NULL || (*b_list)->next == NULL)) 
+	int	result;
+
+	if ((a_list == NULL || *a_list == NULL || (*a_list)->next == NULL)
+		|| (b_list == NULL || *b_list == NULL || (*b_list)->next == NULL))
 	{
-        return -1;
-    }
-	int result;
+		return (-1);
+	}
 	result = rotate(a_list);
-	if(result == -1)
-		return(-1);
+	if (result == -1)
+		return (-1);
 	result = rotate(b_list);
-	if(result == -1)
-		return(-1);
+	if (result == -1)
+		return (-1);
 	ft_putstr_fd("rr\n", 1);
 	return (0);
 }

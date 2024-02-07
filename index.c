@@ -12,29 +12,32 @@
 
 #include "push_swap.h"
 
+t_list	*ft_index_stack(t_list *stack)
+{
+	t_list	*head;
+	int		index;
 
-t_list *ft_index_stack(t_list *stack) {
-    t_list *head;
-    int index = 0;
-
-    while ((head = ft_min_stack_start(stack))) 
-	{  
-        head->index = index++;
-    }
-
-    return stack;
+	index = 0;
+	head = ft_min_stack_start(stack);
+	while (head)
+	{
+		head->index = index++;
+		head = ft_min_stack_start(stack);
+	}
+	return (stack);
 }
 
-
-int ft_len_stack(t_list *list) 
+int	ft_len_stack(t_list *list)
 {
-    int count = 0;
-    while (list) 
+	int	count;
+
+	count = 0;
+	while (list)
 	{
-        count++;
-        list = list->next;
-    }
-    return (count);
+		count++;
+		list = list->next;
+	}
+	return (count);
 }
 
 void	ft_putstr_fd(char *s, int fd)
@@ -51,12 +54,11 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-void ft_print_Stack(t_list * st)
-{
-	while (st != NULL)
-	{
-		printf("st->num = %d  st->index = %d\n", st->num, st->index);
-		st = st->next;
-	}
-	//printf("test st->n = %d\n", st->n);
-}
+// void	ft_print_Stack(t_list * st)
+// {
+// 	while (st != NULL)
+// 	{
+// 		printf("st->num = %d  st->index = %d\n", st->num, st->index);
+// 		st = st->next;
+// 	}
+// }

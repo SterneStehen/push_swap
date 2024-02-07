@@ -28,15 +28,16 @@ int	ft_isnum(char *num)
 	return (1);
 }
 
-void	ft_error()
+void	ft_error(void)
 {
-	char err[6] = "Error\n";
+	char	*err;
+
+	err = "Error\n";
 	ft_putstr_fd(err, 1);
-	//ft_putstr_fd("\n", 1);
 	exit(-1);
 }
 
-int ft_duble(int digit, char **av, int i)
+int	ft_duble(int digit, char **av, int i)
 {
 	i++;
 	while (av[i])
