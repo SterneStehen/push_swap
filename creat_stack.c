@@ -13,8 +13,6 @@
 #include "push_swap.h"
 #include <limits.h>
 
-#include <limits.h> // Для использования INT_MIN и INT_MAX
-
 void	ft_input_audit(int ac, char **av)
 {
 	char		**input;
@@ -23,17 +21,14 @@ void	ft_input_audit(int ac, char **av)
 
 	i = 0;
 	if (ac == 2)
-	{
 		input = ft_split(av[1], ' ');
-		if (!input || *(input) == NULL)
-			ft_free_split(input);
-	}
 	else
 		input = av + 1;
 	while (input[i] != NULL)
 	{
 		digit = ft_atoi(input[i]);
-		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i) || digit <= -2147483648 || digit >= 2147483647)
+		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i)
+			|| digit <= -2147483648 || digit >= 2147483647)
 		{
 			if (ac == 2)
 				ft_free_split(input);
@@ -45,26 +40,25 @@ void	ft_input_audit(int ac, char **av)
 		ft_free_split(input);
 }
 
-void ft_free_split(char **av)
+void	ft_free_split(char **av)
 {
-	int i;
+	int	i;
+
 	i = 0;
-    while (av[i]) 
+	while (av[i])
 	{
-       	free(av[i]);
-       	i++;
-    }
-    free(av);
-	
-	//ft_error("Error");
+		free(av[i]);
+		i++;
+	}
+	free(av);
 }
 
-t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
+t_list	*ft_creat_stack(t_list *a, int ac, char *argv[])
 {
-	int i;
-	long digit;
-	t_list * tmp;
-	char **av;
+	int		i;
+	long	digit;
+	t_list	*tmp;
+	char	**av;
 
 	i = 0;
 	if (ac == 2)
@@ -79,10 +73,7 @@ t_list *ft_creat_stack(t_list *a, int ac, char * argv[])
 		i++;
 	}
 	a = ft_index_stack(a);
-
-	if (ac == 2) 
+	if (ac == 2)
 		ft_free_split(av);
-
 	return (a);
 }
-

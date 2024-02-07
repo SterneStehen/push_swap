@@ -16,7 +16,7 @@ void	ft_listclear(t_list **lst)
 {
 	t_list	*tmp;
 
-	if (!lst )
+	if (!lst)
 		return ;
 	while (*lst)
 	{
@@ -24,7 +24,6 @@ void	ft_listclear(t_list **lst)
 		free(*lst);
 		*lst = tmp;
 	}
-	//free(lst);
 }
 
 t_list	*ft_listlast(t_list *lst)
@@ -65,11 +64,11 @@ t_list	*ft_listnew(int content)
 	new_list->next = NULL;
 	return (new_list);
 }
-t_list * ft_creat()
+
+t_list	*ft_creat(void)
 {
-	t_list * creat;
+	t_list	*creat;
+
 	creat = NULL;
 	return (creat);
 }
-
-	

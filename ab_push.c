@@ -12,27 +12,26 @@
 
 #include "push_swap.h"
 
-
-int push(t_list **a_list, t_list **b_list) 
+int	push(t_list **a_list, t_list **b_list) 
 {
-    t_list *tmp;
+	t_list *tmp;
 
 	if (a_list == NULL || (*a_list) == NULL) 
 	{
-        return -1;
-    }
+		return -1;
+	}
 	tmp = *a_list;
-    *a_list = (*a_list)->next;
-    if (*b_list != NULL) 
+	*a_list = (*a_list)->next;
+	if (*b_list != NULL) 
 	{
-        tmp->next = *b_list;
-    } 
+		tmp->next = *b_list;
+	}
 	else 
 	{
-        tmp->next = NULL;
-    }
-    *b_list = tmp;
-    return 0;
+		tmp->next = NULL;
+	}
+	*b_list = tmp;
+	return (0);
 }
 
 int pb(t_list **a_list, t_list **b_list) 
