@@ -31,7 +31,7 @@ typedef struct t_list
 	struct t_list	*next;
 }	t_list;
 
-int					ft_atoi(const char *nptr);
+long				ft_atoi(const char *nptr);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_tolower(int c);

@@ -33,9 +33,15 @@ void	ft_input_audit(int ac, char **av)
 		input = av + 1;
 	while (input[i] != NULL)
 	{
+		if (input[i][0] == '\0')
+		{
+			if (ac == 2)
+				ft_free_split(input);
+			ft_error();
+		}
 		digit = ft_atoi(input[i]);
 		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i)
-			|| digit <= -2147483648 || digit >= 2147483647)
+			|| digit < -2147483648 || digit > 2147483647)
 		{
 			if (ac == 2)
 				ft_free_split(input);
