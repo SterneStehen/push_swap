@@ -21,7 +21,14 @@ void	ft_input_audit(int ac, char **av)
 
 	i = 0;
 	if (ac == 2)
+	{
 		input = ft_split(av[1], ' ');
+		if(!input || *(input) == NULL)
+		{
+			ft_free_split(input);
+			ft_error();
+		}
+	}
 	else
 		input = av + 1;
 	while (input[i] != NULL)

@@ -30,11 +30,12 @@ int	ft_isnum(char *num)
 
 void	ft_error(void)
 {
-	char	*err;
+	// char	*err;
 
-	err = "Error\n";
-	ft_putstr_fd(err, 1);
-	exit(-1);
+	// err = "Error\n";
+	// ft_putstr_fd(err, 2);
+	write(2, "Error\n", 6);
+	exit(EXIT_FAILURE);
 }
 
 int	ft_duble(int digit, char **av, int i)
