@@ -1,3 +1,16 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: smoreron <7353718@gmail.com>               +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/14 03:05:45 by smoreron          #+#    #+#              #
+#    Updated: 2024/02/14 03:05:45 by smoreron         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
 
 NAME	=	libft.a
 
@@ -9,39 +22,31 @@ SRCS	=	ft_isalpha.c	ft_strlcpy.c	ft_strtrim.c\
 			ft_toupper.c	ft_strrchr.c	ft_putstr_fd.c\
 			ft_tolower.c	ft_memchr.c		ft_putendl_fd.c\
 			ft_atoi.c		ft_memcmp.c		ft_putnbr_fd.c\
-			ft_itoa.c		ft_calloc.c		ft_strchr.c\
-			ft_strdup.c		ft_bzero.c		ft_substr.c\
-			ft_memcpy.c		ft_strjoin.c	ft_memset.c\
-			ft_memmove.c	ft_strnstr.c
-
-SRCS_B	=	ft_lstclear.c	ft_lstnew.c		ft_lstadd_front.c\
-			ft_lstsize.c	ft_lstiter.c	ft_lstadd_back.c\
-			ft_lstlast.c	ft_lstmap.c		ft_lstdelone.c		
+			ft_itoa.c		ft_calloc.c		ft_strdup.c\
+			ft_bzero.c		ft_substr.c		ft_memcpy.c\
+			ft_strjoin.c	ft_memset.c		ft_memmove.c\
+			ft_strnstr.c	
 
 HEADER	=	libft.h
-OBJ		=	$(SRCS:%.c=%.o)
-OBJ_B	=	$(SRCS_B:%.c=%.o)
+OBJ = $(SRCS:%.c=%.o)
 
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -I $(HEADER)
 
-.PHONY	:	all clean fclean re bonus
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror 
+
 
 all		:	$(NAME)
 
-$(NAME)	:	$(OBJ) $(HEADER)
-	ar rcs $(NAME) $?
+$(NAME)	:	$(OBJ) 
+	ar rcs $(NAME) $(OBJ)
 
 %.o		:	%.c $(HEADER)
-	@$(CC) $(FLAGS) -c $< -o $@
-
-bonus	:
-	@make OBJ="$(OBJ_B)" all
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean	:
-	@rm -f $(OBJ) $(OBJ_B)
+	rm -f $(OBJ)
 
 fclean	:	clean
-	@rm -f $(OBJ) $(OBJ_B) $(NAME)
+	rm -f $(NAME)
 
 re		:	fclean all

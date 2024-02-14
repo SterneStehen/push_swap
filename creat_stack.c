@@ -23,47 +23,41 @@ void	ft_input_audit(int ac, char **av)
 	if (ac == 2)
 	{
 		input = ft_split(av[1], ' ');
-		if(!input || *(input) == NULL)
-		{
-			ft_free_split(input);
-			ft_error();
-		}
+		if (!input || *(input) == NULL)
+			ft_free_split(input, ac, 1);
 	}
 	else
 		input = av + 1;
 	while (input[i] != NULL)
 	{
 		if (input[i][0] == '\0')
-		{
-			if (ac == 2)
-				ft_free_split(input);
-			ft_error();
-		}
+			ft_free_split(input, ac, 1);
 		digit = ft_atoi(input[i]);
 		if (!ft_isnum(input[i]) || !ft_duble(digit, input, i)
 			|| digit < -2147483648 || digit > 2147483647)
-		{
-			if (ac == 2)
-				ft_free_split(input);
-			ft_error();
-		}
+			ft_free_split(input, ac, 1);
 		i++;
 	}
 	if (ac == 2)
-		ft_free_split(input);
+		ft_free_split(input, ac, 0);
 }
 
-void	ft_free_split(char **av)
+void	ft_free_split(char **av, int ac, int flag)
 {
 	int	i;
 
 	i = 0;
-	while (av[i])
+	if (ac == 2)
 	{
-		free(av[i]);
-		i++;
+		while (av[i])
+		{
+			free(av[i]);
+			i++;
+		}
+		free(av);
 	}
-	free(av);
+	if (flag == 1)
+		ft_error();
 }
 
 t_list	*ft_creat_stack(t_list *a, int ac, char *argv[])
@@ -87,6 +81,6 @@ t_list	*ft_creat_stack(t_list *a, int ac, char *argv[])
 	}
 	a = ft_index_stack(a);
 	if (ac == 2)
-		ft_free_split(av);
+		ft_free_split(av, 0, 0);
 	return (a);
 }

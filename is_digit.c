@@ -19,7 +19,7 @@ int	ft_isnum(char *num)
 	i = 0;
 	if (num[i] == '-')
 		i++;
-	if(num[i] == '\0')
+	if (num[i] == '\0')
 		return (0);
 	while (num[i])
 	{
@@ -32,10 +32,6 @@ int	ft_isnum(char *num)
 
 void	ft_error(void)
 {
-	// char	*err;
-
-	// err = "Error\n";
-	// ft_putstr_fd(err, 2);
 	write(2, "Error\n", 6);
 	exit(EXIT_FAILURE);
 }
