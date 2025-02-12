@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
 
 void	ft_input_audit(int ac, char **av)
 {
